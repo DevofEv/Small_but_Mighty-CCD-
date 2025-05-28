@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing Better Democracy: Citizen Engagement in Action</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            color: #374151; /* CCD Neutral Gray (Tailwind gray-700) */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 450px;
+            }
+        }
+        .ccd-header-bg { background-color: #003366; /* CCD Deep Blue */ }
+        .ccd-header-text { color: #FFFFFF; }
+        .ccd-section-title { color: #003366; /* CCD Deep Blue */ }
+        .ccd-accent-text { color: #009688; /* CCD Accent Teal */ }
+        .ccd-highlight-text { color: #009688; /* CCD Accent Teal */ }
+        .ccd-highlight-bg { background-color: #009688; /* CCD Accent Teal */ }
+        .ccd-stat-card {
+            background-color: #003366; /* CCD Deep Blue */
+            color: #FFFFFF;
+        }
+        .ccd-nav-link {
+            transition: color 0.3s ease;
+            color: #E0E8F0; /* CCD Light Blue (for contrast on dark header) */
+        }
+        .ccd-nav-link:hover {
+            color: #009688; /* CCD Accent Teal */
+        }
+        .ccd-flowchart-step {
+            border: 2px solid #336699; /* CCD Medium Blue */
+            background-color: #FFFFFF;
+            color: #003366; /* CCD Deep Blue */
+        }
+        .ccd-flowchart-arrow {
+            color: #336699; /* CCD Medium Blue */
+            font-weight: bold;
+        }
+        .ccd-principle-card {
+            background-color: #FFFFFF;
+            border-left: 5px solid #009688; /* CCD Accent Teal */
+        }
+        .ccd-unicode-icon {
+            font-size: 1.8rem; /* Slightly smaller for a cleaner look */
+            margin-right: 0.75rem;
+            color: #009688; /* CCD Accent Teal */
+        }
+        .ccd-body-text { color: #374151; /* Tailwind gray-700 */ }
+        .ccd-subtle-bg { background-color: #F5F5F5; /* CCD Light Gray */ }
+        .ccd-card-bg { background-color: #FFFFFF; }
+
+        /* Tooltip styles for Chart.js to match CCD theme */
+        .chartjs-tooltip {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-radius: 0.375rem !important; /* Tailwind rounded-md */
+            color: #003366 !important; /* CCD Deep Blue */
+            border: 1px solid #336699 !important; /* CCD Medium Blue */
+            padding: 0.5rem !important;
+            font-family: 'Inter', sans-serif !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important; /* Tailwind shadow-md */
+        }
+        .chartjs-tooltip-key {
+            display: inline-block !important;
+            width: 10px !important;
+            height: 10px !important;
+            margin-right: 5px !important;
+            border-radius: 2px !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 ccd-body-text">
+
+    <!-- 
+        Infographic Plan & Narrative Structure (CCD Revision):
+        Focus: Democracy as a Design Problem. How are these methods *designed solutions*?
+        1. Hero/Introduction: The design challenge: making democracy work for everyone. Key stat on trust.
+        2. Participatory Budgeting: Design Problem: Public budgets don't always reflect community needs. Solution: PB design.
+           - Evanston: Designing for equitable crisis recovery.
+           - Cambridge: Designing for sustained, inclusive budgeting.
+        3. Citizens' Assemblies: Design Problem: Complex policies need diverse, informed input. Solution: CA design.
+           - Gibsons: Designing for consensus in community planning.
+           - Eugene: Designing for navigating complex housing laws.
+        4. Civic Technology: Design Problem: How can tech make participation more accessible & effective? Solution: Thoughtful tech design.
+           - Motivote: Designing for youth voter engagement.
+           - LA County VR: Designing for election integrity and safety.
+        5. Design Principles for Better Civic Outcomes: Key design principles for effective engagement.
+        6. Conclusion: Call to Action: Designing a more participatory future.
+
+        Color Palette Chosen (CCD Aligned):
+        - ccd-deep-blue: #003366 (Primary, Headers, Dark Backgrounds)
+        - ccd-medium-blue: #336699 (Secondary, Chart elements, Accents)
+        - ccd-light-blue: #E0E8F0 (Light backgrounds, subtle accents)
+        - ccd-accent-teal: #009688 (Highlighting key stats, calls to action, positive elements)
+        - ccd-neutral-gray: #374151 (Body text - Tailwind gray-700)
+        - ccd-light-gray: #F5F5F5 (Backgrounds for sections)
+        - ccd-white: #FFFFFF
+
+        Visualization Choices (Summary - NO SVG, NO MERMAID JS CONFIRMED):
+        - Trust Deficit Stat: Single Big Number (Text). Goal: Inform. Justification: Clear, impactful. Method: HTML/Tailwind.
+        - PB Turnout Comparison (Evanston): Donut Chart (Chart.js). Goal: Inform/Compare. Justification: Shows part-to-whole for impactful comparison. Method: Chart.js/Canvas.
+        - Evanston Project Categories: Bar Chart (Chart.js). Goal: Compare. Justification: Compares funding across categories. Method: Chart.js/Canvas.
+        - Cambridge Funding/Projects: Single Big Numbers (Text). Goal: Inform. Justification: Highlights key totals. Method: HTML/Tailwind.
+        - Cambridge Turnout Trend: Line Chart (Chart.js). Goal: Change. Justification: Shows change over time. Method: Chart.js/Canvas.
+        - PB Impact (Voting Likelihood): Single Big Number (Text). Goal: Inform. Justification: Impactful stat. Method: HTML/Tailwind.
+        - CA Process Flow: HTML/Tailwind Diagram. Goal: Organize. Justification: Visualizes steps. Method: Styled HTML divs & text.
+        - Gibsons/Eugene Stats: Single Big Numbers (Text). Goal: Inform. Justification: Key figures. Method: HTML/Tailwind.
+        - Motivote Target/Impact: Donut Chart / Icon+Text. Goal: Compare/Inform. Justification: Shows demo focus / key stat. Method: Chart.js/Canvas, HTML/Tailwind.
+        - LA County VR Stats/Focus: Single Big Number / Pictograph. Goal: Inform. Justification: Highlights scale / key areas. Method: HTML/Tailwind.
+        - Tech Challenges: HTML/Tailwind List. Goal: Organize. Justification: Clear presentation of points. Method: HTML/Tailwind.
+        - Key Principles Grid: HTML/Tailwind Cards with Unicode icons. Goal: Organize. Justification: Visually appealing summary. Method: Styled HTML divs & text.
+        NEITHER Mermaid JS NOR SVG were used anywhere in the output.
+    -->
+
+    <header class="ccd-header-bg text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold ccd-header-text">Designing Better Democracy: Citizen Engagement in Action</h1>
+            <nav class="mt-2 md:mt-0">
+                <ul class="flex space-x-3 md:space-x-4 text-sm md:text-base">
+                    <li><a href="#intro" class="ccd-nav-link">Intro</a></li>
+                    <li><a href="#pb" class="ccd-nav-link">Participatory Budgeting</a></li>
+                    <li><a href="#ca" class="ccd-nav-link">Citizens' Assemblies</a></li>
+                    <li><a href="#civictech" class="ccd-nav-link">Civic Technology</a></li>
+                    <li><a href="#principles" class="ccd-nav-link">Design Principles</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="intro" class="text-center py-12 md:py-16">
+            <h2 class="text-4xl md:text-5xl font-bold ccd-section-title mb-6">The Design Challenge: <span class="ccd-accent-text">Making Democracy Work for Everyone</span></h2>
+            <p class="text-lg md:text-xl ccd-body-text max-w-3xl mx-auto mb-8">
+                Democracy is a system designed by people, for people. But how can we ensure it truly serves all voices? This exploration shows how thoughtful design in civic engagement—through Participatory Budgeting, Citizens' Assemblies, and Civic Technology—creates more responsive, equitable, and trusted democratic processes.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="ccd-stat-card p-6 rounded-lg shadow-xl flex flex-col items-center justify-center">
+                    <span class="text-6xl font-bold text-[#FFD166]">18%</span>
+                    <p class="mt-2 text-lg text-center">Only 18% of Americans consistently trust the federal government to do what's right.</p>
+                    <p class="text-xs mt-1 opacity-70">(Source: Pew Research Center / Report [2])</p>
+                </div>
+                <div class="ccd-stat-card p-6 rounded-lg shadow-xl flex flex-col items-center justify-center">
+                    <span class="text-6xl font-bold ccd-highlight-text">+7%</span>
+                    <p class="mt-2 text-lg text-center">Participatory Budgeting participants are 7% more likely to vote in later elections.</p>
+                     <p class="text-xs mt-1 opacity-70">(Source: Participatory Budgeting Project / Report [1,34])</p>
+                </div>
+            </div>
+            <p class="mt-8 text-md text-gray-600">Low trust is a design problem. Engagement methods like these are designed solutions that can rebuild trust and boost participation.</p>
+        </section>
+
+        <section id="pb" class="py-12 md:py-16 ccd-subtle-bg">
+            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-4">Participatory Budgeting (PB)</h2>
+            <p class="text-xl ccd-accent-text text-center mb-10">Design Problem: Public budgets don't always reflect community needs.</p>
+            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-12 text-center">
+                <strong>Design Solution:</strong> Participatory Budgeting (PB) is designed to give residents direct power in deciding how public money is spent. It's a process involving idea generation, community-led proposal development, and voting, leading to real local improvements.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">Evanston, IL: <span class="ccd-highlight-text">Designing for Equitable Recovery</span></h3>
+                    <p class="mb-4 ccd-body-text">Evanston used <strong class="ccd-accent-text">$3 million</strong> in federal ARPA funds for its first PB cycle. The design challenge: ensure COVID-19 recovery funds reached underserved communities.</p>
+                    <div class="chart-container mb-4 h-[250px] md:h-[300px]">
+                        <canvas id="evanstonTurnoutChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Design Choice: Inclusive voting rules (age 14+, no citizenship needed) led to <strong>8.5% voter turnout</strong> (6,565 residents), far above the typical 1% for PB in the U.S.</p>
+                    
+                    <h4 class="font-semibold mt-6 mb-2 ccd-section-title">Key Project Allocations:</h4>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="evanstonProjectsChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 ccd-body-text">The chart shows how funds were allocated based on community votes. Projects like Affordable Housing ($810k) and Marginalized Student Support ($700k) show the impact of this community-centered design.</p>
+                </div>
+
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">Cambridge, MA: <span class="ccd-highlight-text">Designing for Sustained Engagement</span></h3>
+                    <p class="mb-4 ccd-body-text">Since 2014, Cambridge has designed PB into its annual city budget, allocating ~$1-2 million yearly. This sustained design has resulted in:</p>
+                    <div class="flex flex-col sm:flex-row justify-around text-center my-6 space-y-4 sm:space-y-0">
+                        <div>
+                            <span class="text-4xl font-bold ccd-accent-text">79</span>
+                            <p class="ccd-body-text">Projects Funded</p>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-bold ccd-accent-text">$10.6M+</span>
+                            <p class="ccd-body-text">Invested via Community Design</p>
+                        </div>
+                    </div>
+                    <p class="mb-4 ccd-body-text">Design Choice: Multilingual materials (up to 9 languages) and voting eligibility for residents aged 12+ ensure broad inclusion.</p>
+                    <h4 class="font-semibold mt-6 mb-2 ccd-section-title">Growing Voter Turnout:</h4>
+                     <div class="chart-container h-[250px] md:h-[300px]">
+                        <canvas id="cambridgeTurnoutChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 text-center ccd-body-text">The line chart shows increasing voter turnout over recent cycles, with PB10 & PB11 each drawing over 10,000 voters. This demonstrates the success of their inclusive design.</p>
+                    <p class="mt-4 ccd-body-text">Examples of community-designed projects: free menstrual/infant hygiene products, more street trees, safer pedestrian crossings.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 ccd-card-bg p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-2xl font-semibold mb-4 ccd-section-title">The <span class="ccd-highlight-text">Positive Impact</span> of PB by Design</h3>
+                <p class="text-lg ccd-body-text mb-2">PB is designed not just to fund projects, but to build civic skills and trust.</p>
+                <p class="text-2xl font-bold ccd-accent-text mb-1">Participants are <span class="text-3xl">7%</span> more likely to vote in other elections.</p>
+                <p class="text-gray-600 mb-4">(Source: Participatory Budgeting Project)</p>
+                <p class="text-lg ccd-body-text"><span class="ccd-unicode-icon">🎓</span> PB acts as hands-on civic education. 100% of PBP fellows reported learning more about city functions and community engagement through this process.</p>
+            </div>
+        </section>
+
+        <section id="ca" class="py-12 md:py-16">
+            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-4">Citizens' Assemblies (CAs)</h2>
+            <p class="text-xl ccd-accent-text text-center mb-10">Design Problem: Complex policies need diverse, informed citizen input.</p>
+            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-12 text-center">
+                <strong>Design Solution:</strong> Citizens' Assemblies are designed to bring together a "mini-public"—a randomly selected, demographically representative group of residents—to learn, discuss, and make recommendations on tough policy issues.
+            </p>
+            
+            <div class="ccd-card-bg p-6 rounded-lg shadow-lg mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-center ccd-section-title">The Citizens' Assembly Design Process</h3>
+                <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-2 text-center ccd-body-text">
+                    <div class="ccd-flowchart-step p-3 rounded-md w-full md:w-1/5"><strong>1. Invitation</strong><br>(Civic Lottery)</div>
+                    <div class="ccd-flowchart-arrow text-2xl hidden md:block">&rarr;</div> <div class="ccd-flowchart-arrow text-2xl md:hidden">&darr;</div>
+                    <div class="ccd-flowchart-step p-3 rounded-md w-full md:w-1/5"><strong>2. Selection</strong><br>(Representative Group)</div>
+                    <div class="ccd-flowchart-arrow text-2xl hidden md:block">&rarr;</div> <div class="ccd-flowchart-arrow text-2xl md:hidden">&darr;</div>
+                    <div class="ccd-flowchart-step p-3 rounded-md w-full md:w-1/5"><strong>3. Learning Phase</strong><br>(Expert Information)</div>
+                    <div class="ccd-flowchart-arrow text-2xl hidden md:block">&rarr;</div> <div class="ccd-flowchart-arrow text-2xl md:hidden">&darr;</div>
+                    <div class="ccd-flowchart-step p-3 rounded-md w-full md:w-1/5"><strong>4. Deliberation</strong><br>(Guided Discussion)</div>
+                    <div class="ccd-flowchart-arrow text-2xl hidden md:block">&rarr;</div> <div class="ccd-flowchart-arrow text-2xl md:hidden">&darr;</div>
+                    <div class="ccd-flowchart-step p-3 rounded-md w-full md:w-1/5"><strong>5. Recommendations</strong><br>(Informing Policy)</div>
+                </div>
+                <p class="text-sm text-gray-600 mt-4 text-center ccd-body-text">This structured design ensures informed and representative citizen input.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">Gibsons, BC: <span class="ccd-highlight-text">Designing for Consensus in Planning</span></h3>
+                    <p class="mb-4 ccd-body-text">This small town (pop. ~5,000) designed a CA to inform its Official Community Plan, focusing on growth and housing.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4 ccd-body-text">
+                        <li><span class="font-semibold">Design Choice:</span> 25 members selected by civic lottery to mirror the community.</li>
+                        <li>Met for <span class="font-semibold">30-40 hours</span>; received stipends to ensure participation.</li>
+                        <li>Produced <span class="font-semibold">6 key recommendations</span> with 75% agreement.</li>
+                        <li>Town Council <span class="font-semibold ccd-accent-text">prioritized all recommendations</span> for the plan.</li>
+                    </ul>
+                    <p class="ccd-body-text">This design transformed potentially divisive planning into constructive, community-backed solutions.</p>
+                </div>
+
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">Eugene, OR: <span class="ccd-highlight-text">Designing to Navigate Housing Laws</span></h3>
+                    <p class="mb-4 ccd-body-text">Eugene (pop. ~177,000) designed a 29-member Citizen Review Panel to advise on Oregon's "Middle Housing" law.</p>
+                     <ul class="list-disc list-inside space-y-2 mb-4 ccd-body-text">
+                        <li><span class="font-semibold">Design Choice:</span> Selected by civic lottery, ensuring diversity (age, race, renter/owner).</li>
+                        <li>Met online for <span class="font-semibold">35 hours</span>; received stipends.</li>
+                        <li>Produced <span class="font-semibold">4 reports</span> with recommendations.</li>
+                        <li>Panel's input <span class="font-semibold ccd-accent-text">influenced final city policies</span> by balancing diverse views.</li>
+                    </ul>
+                    <p class="ccd-body-text">The CA design helped legitimize tough policy choices by ensuring diverse voices, like renters, were part of the solution-building process.</p>
+                </div>
+            </div>
+             <div class="mt-12 ccd-card-bg p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-center ccd-section-title">Impact by Design: Citizens' Assemblies</h3>
+                <p class="text-lg ccd-body-text text-center mb-4">CAs are designed to build civic skills, trust, and break policy deadlocks by fostering informed citizen input on complex issues.</p>
+                <p class="text-center ccd-body-text"><span class="ccd-unicode-icon">💡</span> Participants report significant learning and feel more able to make a difference.</p>
+            </div>
+        </section>
+
+        <section id="civictech" class="py-12 md:py-16 ccd-subtle-bg">
+            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-4">Civic Technology</h2>
+            <p class="text-xl ccd-accent-text text-center mb-10">Design Problem: How can technology make participation more accessible and effective?</p>
+            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-12 text-center">
+                <strong>Design Solution:</strong> Thoughtfully designed digital tools can inform citizens and lower barriers to participation. However, good design must prioritize equity and accessibility.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">Motivote: <span class="ccd-highlight-text">Designing for Youth Voter Engagement</span></h3>
+                    <p class="mb-4 ccd-body-text">This web app is designed for college students (ages 18-29). It uses game-like features (points, badges, team competitions) to simplify voter prep and build positive voting habits.</p>
+                    <div class="chart-container mb-4 h-[250px] md:h-[300px]">
+                        <canvas id="motivoteImpactChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4 text-center ccd-body-text">The pie chart conceptually shows Motivote's focus on young voters, a group that often has lower turnout. The design aims to make voting prep engaging for them.</p>
+                     <p class="text-center mt-4 ccd-body-text"><span class="ccd-unicode-icon">🎯</span> The platform's design, using behavioral nudges, aims to <strong class="ccd-accent-text">increase turnout up to 10%</strong>.</p>
+                    <p class="mt-2 ccd-body-text">Deployed at universities like U. of Houston, it's a cost-effective design for outreach.</p>
+                </div>
+
+                <div class="ccd-card-bg p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 ccd-section-title">LA County VR: <span class="ccd-highlight-text">Designing for Election Integrity & Safety</span></h3>
+                    <p class="mb-4 ccd-body-text">Los Angeles County (over <strong class="ccd-accent-text">5 million</strong> voters) used Virtual Reality to design and test optimal polling place setups for the 2020 election during COVID-19.</p>
+                    <div class="text-center my-6">
+                        <span class="ccd-unicode-icon text-5xl">🗳️</span>
+                        <span class="ccd-unicode-icon text-5xl">↔️</span>
+                        <span class="ccd-unicode-icon text-5xl">😷</span>
+                    </div>
+                    <p class="text-center ccd-body-text mb-4">VR helped design for social distancing, sanitization, and voter flow, identifying potential problems before Election Day.</p>
+                    <p class="ccd-body-text">This innovative design protected in-person voting access and contributed to smooth, safe elections with record turnout.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 ccd-card-bg p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold text-center mb-4 ccd-section-title">Designing Civic Tech: Promise & Perils</h3>
+                <div class="flex flex-col md:flex-row justify-between items-start ccd-body-text">
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:pr-4">
+                        <h4 class="font-semibold text-lg ccd-highlight-text mb-2"><span class="ccd-unicode-icon text-2xl">🌟</span>Promise by Design:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Makes participation easier</li>
+                            <li>Engages new/younger people</li>
+                            <li>Improves efficiency and safety</li>
+                            <li>Provides easy access to information</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 md:pl-4">
+                        <h4 class="font-semibold text-lg ccd-accent-text mb-2"><span class="ccd-unicode-icon text-2xl">⚠️</span>Design Challenges:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Digital divide (access & skills)</li>
+                            <li>Data privacy concerns</li>
+                            <li>Misinformation risks</li>
+                            <li>Cost and making it work for everyone</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-6 text-center ccd-body-text">Good civic tech design is user-centered, accessible (WCAG compliant), protects privacy, and often involves partnerships to ensure it helps everyone, not just some.</p>
+            </div>
+        </section>
+
+        <section id="principles" class="py-12 md:py-16">
+            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-10">Design Principles for <span class="ccd-accent-text">Better Civic Outcomes</span></h2>
+            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-12 text-center">
+                Effective civic engagement isn't an accident; it's the result of careful design. These principles guide initiatives that truly make an impact.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🌍</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Inclusion</h3> </div>
+                    <p class="ccd-body-text text-sm">Actively design to include and empower diverse voices, especially from marginalized groups (e.g., easy voting, stipends, language support).</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                     <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🔍</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Transparency</h3> </div>
+                    <p class="ccd-body-text text-sm">Ensure all parts of the process are open, understandable, and accessible (e.g., clear rules, public information).</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                     <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🎯</span> <h3 class="text-xl font-semibold ccd-section-title">Design with Clear Purpose</h3> </div>
+                    <p class="ccd-body-text text-sm">Clearly define the goals and how citizen input will influence decisions to set realistic expectations.</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">💰</span> <h3 class="text-xl font-semibold ccd-section-title">Design with Resources</h3> </div>
+                    <p class="ccd-body-text text-sm">Commit enough funding, staff, and tech support for a high-quality process.</p>
+                </div>
+                 <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🗣️</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Fair Discussion</h3> </div>
+                    <p class="ccd-body-text text-sm">Use skilled, neutral facilitators to guide discussions and ensure respectful dialogue.</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                     <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🤝</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Trust</h3> </div>
+                    <p class="ccd-body-text text-sm">Create processes that are fair, transparent, responsive, and respect citizen contributions.</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🔄</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Impact</h3> </div>
+                    <p class="ccd-body-text text-sm">Clearly show how input will be used by decision-makers and report back on results.</p>
+                </div>
+                <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                     <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">🧠</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Learning</h3> </div>
+                    <p class="ccd-body-text text-sm">Provide time, balanced information, and structured ways for people to learn and discuss options.</p>
+                </div>
+                 <div class="ccd-principle-card p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-3"> <span class="ccd-unicode-icon">📈</span> <h3 class="text-xl font-semibold ccd-section-title">Design for Improvement</h3> </div>
+                    <p class="ccd-body-text text-sm">Regularly check how well processes work and use feedback to make them better.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="text-center py-12 md:py-16 ccd-subtle-bg">
+            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title mb-6">A Call to Action: <span class="ccd-accent-text">Designing a More Participatory Future</span></h2>
+            <p class="text-lg md:text-xl ccd-body-text max-w-3xl mx-auto mb-8">
+                The "small but mighty" initiatives show that practical, well-designed tools can revitalize civic life and build stronger, fairer democracies. The power to design a better future is in our communities.
+            </p>
+            <p class="text-lg md:text-xl ccd-body-text max-w-3xl mx-auto font-semibold">
+                Let's invest in designing participatory systems, embrace thoughtful discussion, prioritize inclusion in our designs, and create a culture of learning to unlock this potential.
+            </p>
+            <button class="mt-8 ccd-highlight-bg text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-[#00796B] transition duration-300 text-lg" onclick="showCcdAlert('Thank you for your interest! Explore opportunities to help design better civic engagement in your community.')">
+                Get Inspired to Design!
+            </button>
+        </section>
+
+        <div id="ccdAlertModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-[100]" style="display: none;">
+            <div class="p-5 border w-11/12 md:w-1/2 lg:w-1/3 shadow-lg rounded-md bg-white">
+                <div class="text-center">
+                    <h3 class="text-lg leading-6 font-medium ccd-section-title" id="ccdAlertTitle">Alert</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-sm ccd-body-text" id="ccdAlertMessage">Message goes here.</p>
+                    </div>
+                    <div class="items-center px-4 py-3">
+                        <button id="okBtn" class="px-4 py-2 bg-[#009688] text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-[#00796B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009688]">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center p-6 ccd-header-bg text-gray-300 text-sm">
+        <p>Infographic by the Center for Civic Design. Inspired by the "Small but Mighty, Civic Engagement Series" report.</p>
+        <p>Visualizations created with Chart.js and HTML/Tailwind CSS. No SVG or Mermaid JS used.</p>
+    </footer>
+
+    <script>
+        const ccdPalette = {
+            deepBlue: '#003366',
+            mediumBlue: '#336699',
+            lightBlue: '#E0E8F0',
+            accentTeal: '#009688',
+            neutralGray: '#374151',
+            lightGray: '#F5F5F5',
+            white: '#FFFFFF'
+        };
+
+        function wrapLabels(label, maxWidth) {
+            if (typeof label !== 'string') return label;
+            if (label.length <= maxWidth) return label;
+
+            const words = label.split(' ');
+            let currentLine = '';
+            const lines = [];
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            });
+            if (currentLine.length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 1 ? lines : lines[0] || '';
+        }
+        
+        const chartTooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: ccdPalette.deepBlue, font: { size: 12 } }
+                },
+                tooltip: {
+                    enabled: false, // Disable default tooltip
+                    external: function(context) { // Custom HTML tooltip
+                        let tooltipEl = document.getElementById('chartjs-tooltip');
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.id = 'chartjs-tooltip';
+                            tooltipEl.classList.add('chartjs-tooltip'); // Apply custom class
+                            document.body.appendChild(tooltipEl);
+                        }
+
+                        const tooltipModel = context.tooltip;
+                        if (tooltipModel.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        tooltipEl.classList.remove('above', 'below', 'no-transform');
+                        if (tooltipModel.yAlign) {
+                            tooltipEl.classList.add(tooltipModel.yAlign);
+                        } else {
+                            tooltipEl.classList.add('no-transform');
+                        }
+
+                        function getBody(bodyItem) {
+                            return bodyItem.lines;
+                        }
+
+                        if (tooltipModel.body) {
+                            const titleLines = tooltipModel.title || [];
+                            const bodyLines = tooltipModel.body.map(getBody);
+
+                            let innerHtml = '';
+
+                            titleLines.forEach(function(title) {
+                                innerHtml += '<div style="font-weight: bold; margin-bottom: 5px;">' + title + '</div>';
+                            });
+                            
+                            innerHtml += '<table>';
+
+                            bodyLines.forEach(function(body, i) {
+                                const colors = tooltipModel.labelColors[i];
+                                let style = 'background:' + colors.backgroundColor;
+                                style += '; border-color:' + colors.borderColor;
+                                style += '; border-width: 2px';
+                                const span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+                                innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                            });
+                            innerHtml += '</table>';
+                            
+                            tooltipEl.innerHTML = innerHtml;
+                        }
+
+                        const position = context.chart.canvas.getBoundingClientRect();
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.position = 'absolute';
+                        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                        tooltipEl.style.pointerEvents = 'none';
+                    },
+                    callbacks: { title: chartTooltipTitleCallback } // Still needed for data access in external tooltip
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: ccdPalette.deepBlue, font: { size: 11 } },
+                    grid: { color: 'rgba(0, 51, 102, 0.1)' }
+                },
+                x: {
+                    ticks: { color: ccdPalette.deepBlue, font: { size: 11 } },
+                    grid: { color: 'rgba(0, 51, 102, 0.1)' }
+                }
+            }
+        };
+
+        // Evanston Turnout Chart
+        const evanstonTurnoutCtx = document.getElementById('evanstonTurnoutChart').getContext('2d');
+        new Chart(evanstonTurnoutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Evanston PB Turnout (8.5%)', 'Typical US PB Turnout (1%)', 'Non-Voters (Context)'],
+                datasets: [{
+                    label: 'Voter Turnout Comparison',
+                    data: [8.5, 1, 100-8.5-1], 
+                    backgroundColor: [
+                        ccdPalette.accentTeal,
+                        ccdPalette.mediumBlue,
+                        ccdPalette.lightGray
+                    ],
+                    borderColor: ccdPalette.white,
+                    borderWidth: 2
+                }]
+            },
+            options: { ...defaultChartOptions, cutout: '60%' }
+        });
+
+        // Evanston Projects Chart
+        const evanstonProjectsCtx = document.getElementById('evanstonProjectsChart').getContext('2d');
+        const evanstonProjectLabels = [
+            'Affordable Housing Subsidy', 
+            'Marginalized Student Support', 
+            'Refugee Housing', 
+            'Urban Farm', 
+            'Youth Drop-In Center',
+            'Small Business Grants',
+            'Mental Health Training'
+        ].map(label => wrapLabels(label, 16));
+
+        new Chart(evanstonProjectsCtx, {
+            type: 'bar',
+            data: {
+                labels: evanstonProjectLabels,
+                datasets: [{
+                    label: 'Funding (USD)',
+                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
+                    backgroundColor: ccdPalette.accentTeal,
+                    borderColor: ccdPalette.deepBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: { 
+                ...defaultChartOptions, 
+                indexAxis: 'y', 
+                scales: { 
+                    x: { ...defaultChartOptions.scales.x, ticks: { ...defaultChartOptions.scales.x.ticks, callback: function(value) { return '$' + (value/1000) + 'k';} } },
+                    y: { ...defaultChartOptions.scales.y }
+                } 
+            }
+        });
+        
+        // Cambridge Turnout Chart
+        const cambridgeTurnoutCtx = document.getElementById('cambridgeTurnoutChart').getContext('2d');
+        new Chart(cambridgeTurnoutCtx, {
+            type: 'line',
+            data: {
+                labels: ['PB9 (FY24)', 'PB10 (FY25)', 'PB11 (FY26)'],
+                datasets: [{
+                    label: 'Voters',
+                    data: [8768, 10522, 10110], 
+                    backgroundColor: Chart.helpers.color(ccdPalette.accentTeal).alpha(0.3).rgbString(),
+                    borderColor: ccdPalette.accentTeal,
+                    tension: 0.1,
+                    fill: true,
+                    pointBackgroundColor: ccdPalette.accentTeal,
+                    pointBorderColor: ccdPalette.white,
+                    pointHoverBackgroundColor: ccdPalette.white,
+                    pointHoverBorderColor: ccdPalette.accentTeal
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        // Motivote Impact Chart
+        const motivoteImpactCtx = document.getElementById('motivoteImpactChart').getContext('2d');
+        new Chart(motivoteImpactCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Youth (18-29) Target Demographic', 'Other Age Groups (Conceptual)'],
+                datasets: [{
+                    data: [40, 60], 
+                    backgroundColor: [
+                        ccdPalette.accentTeal,
+                        ccdPalette.mediumBlue
+                    ],
+                    borderColor: ccdPalette.white,
+                    borderWidth: 2
+                }]
+            },
+            options: { ...defaultChartOptions, 
+                plugins: { 
+                    ...defaultChartOptions.plugins, 
+                    title: { display: true, text: 'Focus on Youth Voter Turnout (Conceptual)', color: ccdPalette.deepBlue, font: {size: 14, weight: 'bold'} } 
+                }
+            }
+        });
+
+        // Custom Alert Function
+        function showCcdAlert(message, title = 'Notification') {
+            document.getElementById('ccdAlertTitle').innerText = title;
+            document.getElementById('ccdAlertMessage').innerText = message;
+            document.getElementById('ccdAlertModal').style.display = 'flex';
+            document.getElementById('okBtn').onclick = function() {
+                document.getElementById('ccdAlertModal').style.display = 'none';
+            };
+        }
+
+    </script>
+</body>
+</html>
