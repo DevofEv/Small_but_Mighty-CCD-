@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Small but Mighty: Designing Better Democracy - A CCD Project</title>
+    <meta name="description" content="Explore how Small but Mighty civic engagement initiatives like Participatory Budgeting, Citizens' Assemblies, and Civic Technology are strengthening democracy. A Center for Civic Design project.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
@@ -12,8 +13,8 @@
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            color: #374151; /* CCD Neutral Gray (Tailwind gray-700) */
-            background-color: #F9FAFB; /* Tailwind gray-50 */
+            color: #374151; 
+            background-color: #F9FAFB; 
         }
         .chart-container {
             position: relative;
@@ -30,20 +31,19 @@
                 max-height: 480px;
             }
         }
-        .ccd-header-bg { background-color: #003366; /* CCD Deep Blue */ }
-        .ccd-section-title { color: #003366; /* CCD Deep Blue */ }
-        .ccd-accent-text { color: #009688; /* CCD Accent Teal */ }
+        .ccd-header-bg { background-color: #003366; }
+        .ccd-section-title { color: #003366; }
+        .ccd-accent-text { color: #009688; }
         
-        .sbm-brand-text { color: #005A87; /* SBM Primary Blue */ }
-        .sbm-accent-text { color: #00A99D; /* SBM Accent Teal */ }
-        .sbm-highlight-yellow { color: #FFC107; /* SBM Highlight Yellow for stats */ }
-
+        .sbm-brand-text { color: #005A87; }
+        .sbm-accent-text { color: #00A99D; }
+        .sbm-highlight-yellow { color: #FFC107; }
 
         .ccd-stat-card {
-            background-color: #003366; /* CCD Deep Blue */
+            background-color: #003366; 
             color: #FFFFFF;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem; /* rounded-xl */
+            border-radius: 0.75rem; 
         }
         .ccd-stat-card:hover {
             transform: translateY(-6px);
@@ -58,7 +58,7 @@
         }
         .ccd-nav-link:hover, .ccd-nav-link.active {
             color: #FFFFFF; 
-            background-color: #005A87; /* SBM Blue for hover/active */
+            background-color: #005A87; 
             transform: scale(1.05);
         }
         .ccd-flowchart-step {
@@ -66,33 +66,26 @@
             background-color: #FFFFFF;
             color: #003366; 
             transition: all 0.3s ease;
-            border-radius: 0.5rem; /* rounded-lg */
+            border-radius: 0.5rem; 
         }
         .ccd-flowchart-step:hover {
             background-color: #E0E8F0; 
             border-color: #005A87; 
             transform: translateY(-3px);
         }
-        .ccd-flowchart-arrow {
-            color: #336699; 
-            font-weight: 700; /* bolder arrow */
-        }
+        .ccd-flowchart-arrow { color: #336699; font-weight: 700; }
         .ccd-principle-card {
             background-color: #FFFFFF;
-            border-left: 8px solid #009688; /* Thicker border */
+            border-left: 8px solid #009688; 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem; /* rounded-xl */
+            border-radius: 0.75rem; 
         }
          .ccd-principle-card:hover {
             transform: translateY(-6px) scale(1.03);
             box-shadow: 0 12px 25px rgba(0, 51, 102, 0.18);
         }
-        .ccd-unicode-icon {
-            font-size: 2.25rem; /* Slightly larger */
-            margin-right: 0.875rem; /* 14px */
-            color: #009688; 
-        }
-        .ccd-body-text { color: #374151; line-height: 1.7; } /* Increased line-height */
+        .ccd-unicode-icon { font-size: 2.25rem; margin-right: 0.875rem; color: #009688; }
+        .ccd-body-text { color: #374151; line-height: 1.7; }
         .ccd-subtle-bg { background-color: #F0F4F8; }
         .ccd-card-bg { background-color: #FFFFFF; }
 
@@ -114,69 +107,81 @@
         }
         
         .logo-placeholder-sbm {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700; 
-            color: #FFFFFF; 
-            background-color: #005A87; 
-            border: 2px solid #00A99D; 
-            border-radius: 8px;
-            text-align: center;
-            height: 50px; 
-            width: auto;
-            padding: 0 24px; 
-            font-size: 1.25rem; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center; font-weight: 700; 
+            color: #FFFFFF; background-color: #005A87; border: 2px solid #00A99D; 
+            border-radius: 8px; text-align: center; height: 50px; width: auto;
+            padding: 0 24px; font-size: 1.25rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .logo-placeholder-ccd {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #003366; 
-            background-color: #E0E8F0; 
-            border: 1px solid #336699; 
-            border-radius: 6px;
-            text-align: center;
-            height: 30px; 
-            width: auto;
-            margin-top: 6px; 
-            padding: 0 16px;
-            font-size: 0.875rem; 
+            display: flex; align-items: center; justify-content: center; font-weight: 600;
+            color: #003366; background-color: #E0E8F0; border: 1px solid #336699; 
+            border-radius: 6px; text-align: center; height: 30px; width: auto;
+            margin-top: 6px; padding: 0 16px; font-size: 0.875rem; 
         }
 
         .section-divider {
-            height: 5px; 
-            background-image: linear-gradient(to right, #00A99D, #005A87, #003366); 
-            margin: 3.5rem auto; 
-            width: 60%; 
-            border-radius: 3px;
+            height: 5px; background-image: linear-gradient(to right, #00A99D, #005A87, #003366); 
+            margin: 3.5rem auto; width: 60%; border-radius: 3px;
             box-shadow: 0 2px 4px rgba(0,90,135,0.2);
         }
-        .stat-highlight-lg {
-            font-size: 5rem; 
-            font-weight: 800; 
-            line-height: 1;
-        }
-         .stat-highlight-md {
-            font-size: 3.5rem; 
-            font-weight: 700; 
-            line-height: 1;
-        }
-        .promise-perils-container > div {
-            padding: 1.5rem; 
-        }
-        .promise-perils-container h4 {
-            margin-bottom: 1rem; 
-        }
+        .stat-highlight-lg { font-size: 5rem; font-weight: 800; line-height: 1; }
+        .stat-highlight-md { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+        .promise-perils-container > div { padding: 1.5rem; }
+        .promise-perils-container h4 { margin-bottom: 1rem; }
         .blockquote {
-            border-left: 4px solid #00A99D; /* SBM Accent Teal */
-            padding-left: 1rem;
-            margin: 1rem 0;
-            font-style: italic;
-            color: #555;
+            border-left: 4px solid #00A99D; padding-left: 1rem; margin: 1rem 0;
+            font-style: italic; color: #555;
         }
+        .audio-player-container {
+            background-color: #E0E8F0; /* CCD Light Blue */
+            border: 1px solid #336699; /* CCD Medium Blue */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+        .audio-player-container h4 { color: #005A87; /* SBM Brand Text */ }
+        .audio-player-container p { color: #374151; /* CCD Body Text */ }
+        .audio-player-container audio {
+            width: 100%;
+            margin-top: 1rem; /* mt-4 */
+            border-radius: 0.375rem; /* rounded-md */
+            outline: none; /* Remove default focus outline if custom is applied */
+        }
+        .audio-player-container audio::-webkit-media-controls-panel {
+            background-color: #FFFFFF;
+            border-radius: 0.375rem;
+        }
+        .transcript-link {
+            display: inline-block;
+            margin-top: 0.75rem; /* mt-3 */
+            color: #005A87; /* SBM Brand Text */
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .transcript-link:hover { color: #003366; /* CCD Deep Blue */ }
+
+        .read-more-content {
+            max-height: 7.5em; /* Approx 5 lines, adjust as needed */
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .read-more-content.expanded {
+            max-height: 1000px; /* Large enough for all content */
+        }
+        .read-more-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background-color: #009688;
+            color: white;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .read-more-btn:hover { background-color: #00796B; }
 
     </style>
 </head>
@@ -189,7 +194,7 @@
                 <div class="logo-placeholder-ccd">A Center for Civic Design Project</div>
             </div>
             <nav id="mainNav" class="mt-2 md:mt-0">
-                <ul class="flex space-x-1 md:space-x-2 text-sm">
+                <ul class="flex flex-wrap justify-center space-x-1 md:space-x-2 text-sm">
                     <li><a href="#intro" class="ccd-nav-link">Intro</a></li>
                     <li><a href="#pb" class="ccd-nav-link">Participatory Budgeting</a></li>
                     <li><a href="#ca" class="ccd-nav-link">Citizens' Assemblies</a></li>
@@ -204,13 +209,15 @@
 
         <section id="intro" class="text-center py-16 md:py-24">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold sbm-brand-text mb-8">The Design Challenge: <span class="sbm-accent-text block md:inline">Making Democracy Work for Everyone</span></h2>
-            <p class="text-lg md:text-xl ccd-body-text max-w-4xl mx-auto mb-6">
-                This "Small but Mighty" exploration, a project by the Center for Civic Design, delves into how even local, small-scale initiatives can have an outsized impact on democratic participation. We examine real-world case studies to uncover what works, what challenges arise, and how these innovative forms of engagement contribute to more responsive and equitable policymaking.
-            </p>
-            <p class="text-lg md:text-xl ccd-body-text max-w-4xl mx-auto mb-12">
-                Our goal is to connect research findings with practical lessons, showing policymakers and civic professionals how thoughtfully designed public participation can strengthen democracy from the ground up.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
+            <div class="read-more-container max-w-4xl mx-auto">
+                <div class="read-more-content ccd-body-text text-lg md:text-xl mb-6">
+                    <p class="mb-4">This "Small but Mighty" exploration, a project by the Center for Civic Design, delves into how even local, small-scale initiatives can have an outsized impact on democratic participation. We examine real-world case studies to uncover what works, what challenges arise, and how these innovative forms of engagement contribute to more responsive and equitable policymaking.</p>
+                    <p>Our goal is to connect research findings with practical lessons, showing policymakers and civic professionals how thoughtfully designed public participation can strengthen democracy from the ground up.</p>
+                </div>
+                <button class="read-more-btn">Read More</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto mt-12">
                 <div class="ccd-stat-card p-8 md:p-10 flex flex-col items-center justify-center">
                     <span class="stat-highlight-lg sbm-highlight-yellow">18%</span>
                     <p class="mt-4 text-xl md:text-2xl text-center font-semibold">Only 18% of Americans consistently trust the federal government to do what's right.</p>
@@ -230,11 +237,26 @@
         <section id="pb" class="py-12 md:py-16 ccd-subtle-bg rounded-xl shadow-inner">
             <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-5">Participatory Budgeting (PB)</h2>
             <p class="text-xl md:text-2xl sbm-accent-text text-center mb-10 font-medium">Design Problem: Public budgets don't always reflect community needs.</p>
-            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-16 text-center">
-                <strong>Design Solution:</strong> Participatory Budgeting (PB) is designed to give residents direct power in deciding how public money is spent. It's a community-led process from idea generation, through volunteer-led proposal development, to a community-wide vote.
-            </p>
+            <div class="read-more-container max-w-3xl mx-auto">
+                <div class="read-more-content ccd-body-text text-lg mb-16 text-center">
+                    <p class="mb-4"><strong>Design Solution:</strong> Participatory Budgeting (PB) is designed to give residents direct power in deciding how public money is spent. It's a community-led process from idea generation, through volunteer-led proposal development, to a community-wide vote.</p>
+                    <p>PB empowers diverse voices, often leading to more equitable distribution of resources and fostering a stronger sense of community ownership and trust in local government. It's a tangible way for citizens to see their input directly shape their neighborhoods.</p>
+                </div>
+                <button class="read-more-btn mx-auto block">Read More</button>
+            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div class="audio-player-container">
+                <h4 class="text-2xl font-semibold mb-3">Listen: The Power of Participatory Budgeting</h4>
+                <p class="text-md mb-4">Hear directly from community members and experts about how PB is transforming cities like Evanston and Cambridge.</p>
+                <audio controls>
+                    <source src="placeholder_pb_podcast.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element. 
+                </audio>
+                <a href="#pb-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mt-12">
+                {/* ... PB Case Studies for Evanston and Cambridge ... (Content from previous version) */}
                 <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Evanston, IL: <span class="ccd-accent-text">Designing for Equitable Recovery</span></h3>
                     <p class="mb-4 ccd-body-text text-lg">Evanston used <strong class="sbm-accent-text text-2xl font-semibold">$3 million</strong> in ARPA funds, with expertise from <strong class="sbm-brand-text">Northwestern University</strong> aiding process design. Design challenge: ensure COVID-19 recovery funds reached underserved communities.</p>
@@ -274,7 +296,6 @@
                     <p class="text-md text-gray-700 mt-4 text-center ccd-body-text">Line chart shows rising turnout, with PB10 & PB11 each over 10,000 voters, proving inclusive design success.</p>
                 </div>
             </div>
-
             <div class="mt-16 ccd-card-bg p-8 md:p-10 rounded-xl shadow-xl text-center">
                 <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">The <span class="ccd-accent-text">Positive Impact</span> of PB by Design</h3>
                 <p class="text-lg md:text-xl ccd-body-text mb-4">PB is designed to build civic skills and trust. It serves as practical civic education, with participants becoming more informed community members and sometimes <strong class="sbm-brand-text">civic ambassadors or future leaders.</strong></p>
@@ -294,8 +315,19 @@
             <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-16 text-center">
                 <strong>Design Solution:</strong> Citizens' Assemblies (guided by frameworks like OECD principles) bring together a "mini-public"—a randomly selected, demographically representative group—to learn, discuss, and make recommendations on tough policy issues.
             </p>
+
+            <div class="audio-player-container">
+                <h4 class="text-2xl font-semibold mb-3">Listen: Deliberative Democracy in Action</h4>
+                <p class="text-md mb-4">Discover how Citizens' Assemblies in Gibsons and Eugene empowered everyday people to tackle complex local challenges.</p>
+                <audio controls>
+                    <source src="placeholder_ca_podcast.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element. 
+                </audio>
+                <a href="#ca-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
+            </div>
             
-            <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl mb-16">
+            {/* ... CA Process Flow and Case Studies for Gibsons and Eugene ... (Content from previous version) */}
+            <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl mb-16 mt-12">
                 <h3 class="text-2xl md:text-3xl font-semibold mb-10 text-center ccd-section-title">The Citizens' Assembly Design Process</h3>
                 <div class="flex flex-col md:flex-row justify-around items-stretch space-y-8 md:space-y-0 md:space-x-4 text-center ccd-body-text">
                     <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">📬</span><strong class="text-lg">1. Invitation</strong><br>(Civic Lottery)</div>
@@ -310,7 +342,6 @@
                 </div>
                 <p class="text-md text-gray-700 mt-8 text-center ccd-body-text">This structured design, often supported by organizations like the <strong class="sbm-brand-text">Sortition Foundation</strong> or <strong class="sbm-brand-text">MASS LBP</strong>, ensures informed and representative citizen input.</p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                  <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Gibsons, BC: <span class="ccd-accent-text">Designing for Consensus</span></h3>
@@ -323,7 +354,6 @@
                     </ul>
                     <p class="ccd-body-text text-lg">Design transformed divisive planning into constructive solutions, with positive local media like "Quite proud of this little town."</p>
                 </div>
-
                 <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Eugene, OR: <span class="ccd-accent-text">Navigating Housing Laws</span></h3>
                     <p class="mb-4 ccd-body-text text-lg">Eugene (pop. ~177,000) designed a 29-member Panel with <strong class="sbm-brand-text">Healthy Democracy</strong> for "Middle Housing" law. The panel helped <strong class="sbm-brand-text">proactively address community concerns,</strong> contributing to less acrimonious policy adoption.</p>
@@ -352,7 +382,18 @@
                 <strong>Design Solution:</strong> Thoughtfully designed digital tools can inform citizens and lower barriers. Good design must prioritize equity, accessibility (e.g., WCAG compliance), and data privacy.
             </p>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch"> 
+            <div class="audio-player-container">
+                <h4 class="text-2xl font-semibold mb-3">Listen: Tech Innovations in Civic Life</h4>
+                <p class="text-md mb-4">Explore how platforms like Motivote and VR simulations in LA County are changing the landscape of citizen engagement and election administration.</p>
+                <audio controls>
+                    <source src="placeholder_civictech_podcast.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element. 
+                </audio>
+                <a href="#civictech-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
+            </div>
+
+            {/* ... Civic Tech Case Studies for Motivote and LA County VR ... (Content from previous version) */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mt-12"> 
                 <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
                     <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Motivote: <span class="ccd-accent-text">Designing for Youth Voter Engagement</span></h3>
                     <p class="mb-4 ccd-body-text text-lg">Web app for college students (18-29) using gamification to simplify voter prep, reducing "friction" and <strong class="sbm-brand-text">lowering the "activation energy"</strong> for participation.</p>
@@ -370,7 +411,6 @@
                     </div>
                     <p class="text-md text-gray-700 mt-4 text-center ccd-body-text">Pie chart shows youth focus. Design aims to make voting prep engaging for them.</p>
                 </div>
-
                 <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
                     <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">LA County VR: <span class="ccd-accent-text">Designing for Election Integrity & Safety</span></h3>
                     <p class="mb-4 ccd-body-text text-lg">LA County (over <strong class="sbm-accent-text text-xl font-semibold">5 million</strong> voters) used VR with <strong class="sbm-brand-text">URI VOTES</strong> to design optimal, safe polling places for 2020 (COVID-19), serving as a crucial <strong class="sbm-brand-text">"dress rehearsal"</strong> for complex logistics.</p>
@@ -383,7 +423,6 @@
                     <p class="ccd-body-text text-lg">Innovative design protected in-person voting, contributing to <strong class="sbm-brand-text font-semibold">smooth, safe elections & record turnout.</strong></p>
                 </div>
             </div>
-
             <div class="mt-16 ccd-card-bg p-8 md:p-10 rounded-xl shadow-xl promise-perils-container">
                 <h3 class="text-2xl md:text-3xl font-semibold text-center mb-8 ccd-section-title">Designing Civic Tech: Promise & Perils</h3>
                 <div class="flex flex-col md:flex-row justify-between items-start ccd-body-text text-lg">
@@ -413,7 +452,7 @@
         <div class="section-divider"></div>
 
         <section id="principles" class="py-12 md:py-16">
-            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-10">Design Principles for <span class="sbm-accent-text">Better Civic Outcomes</span></h2>
+             <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-10">Design Principles for <span class="sbm-accent-text">Better Civic Outcomes</span></h2>
             <p class="text-lg md:text-xl ccd-body-text max-w-3xl mx-auto mb-16 text-center">
                 Effective civic engagement isn't an accident; it's the result of careful design. These principles, drawn from the "Small but Mighty" series, guide initiatives that truly make an impact by embedding equity and effectiveness into their core.
             </p>
@@ -467,7 +506,6 @@
                 </div>
             </div>
         </div>
-
     </main>
 
     <footer class="text-center p-8 ccd-header-bg text-gray-300">
@@ -479,255 +517,128 @@
     <script>
         Chart.register(ChartDataLabels); 
 
-        const ccdPalette = {
-            deepBlue: '#003366',
-            mediumBlue: '#336699',
-            accentTeal: '#009688',
-            sbmBrandText: '#005A87',
-            sbmAccentText: '#00A99D',
-            lightGray: '#F0F4F8', 
-            white: '#FFFFFF',
-            yellowHighlight: '#FFC107' 
+        const ccdPalette = { /* ... (palette definition from previous version) ... */ 
+            deepBlue: '#003366', mediumBlue: '#336699', accentTeal: '#009688',
+            sbmBrandText: '#005A87', sbmAccentText: '#00A99D', lightGray: '#F0F4F8', 
+            white: '#FFFFFF', yellowHighlight: '#FFC107' 
         };
 
-        function wrapLabels(label, maxWidth) {
+        function wrapLabels(label, maxWidth) { /* ... (function from previous version) ... */ 
             if (typeof label !== 'string') return label;
             if (label.length <= maxWidth) return label;
-            const words = label.split(' ');
-            let currentLine = '';
-            const lines = [];
+            const words = label.split(' '); let currentLine = ''; const lines = [];
             words.forEach(word => {
                 if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
-                    lines.push(currentLine.trim());
-                    currentLine = word;
-                } else {
-                    currentLine = (currentLine + ' ' + word).trim();
-                }
+                    lines.push(currentLine.trim()); currentLine = word;
+                } else { currentLine = (currentLine + ' ' + word).trim(); }
             });
             if (currentLine.length > 0) lines.push(currentLine.trim());
             return lines.length > 1 ? lines : lines[0] || '';
         }
         
-        const chartTooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
+        const chartTooltipTitleCallback = (tooltipItems) => { /* ... (function from previous version) ... */ 
+            const item = tooltipItems[0]; let label = item.chart.data.labels[item.dataIndex];
             return Array.isArray(label) ? label.join(' ') : label;
         };
 
-        const defaultChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: { padding: { top: 25, bottom: 15, left:10, right:10 } }, 
+        const defaultChartOptions = { /* ... (options from previous version, ensure datalabels plugin is configured) ... */ 
+            responsive: true, maintainAspectRatio: false, layout: { padding: { top: 25, bottom: 15, left:10, right:10 } }, 
             plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: { 
-                        color: ccdPalette.deepBlue, 
-                        font: { size: 13, family: 'Inter', weight: 500 }, 
-                        padding: 25 
-                    }
-                },
+                legend: { position: 'bottom', labels: { color: ccdPalette.deepBlue, font: { size: 13, family: 'Inter', weight: 500 }, padding: 25 }},
                 tooltip: {
                     enabled: false, 
                     external: function(context) { 
                         let tooltipEl = document.getElementById('chartjs-tooltip');
-                        if (!tooltipEl) {
-                            tooltipEl = document.createElement('div');
-                            tooltipEl.id = 'chartjs-tooltip';
-                            tooltipEl.classList.add('chartjs-tooltip'); 
-                            document.body.appendChild(tooltipEl);
-                        }
+                        if (!tooltipEl) { tooltipEl = document.createElement('div'); tooltipEl.id = 'chartjs-tooltip'; tooltipEl.classList.add('chartjs-tooltip'); document.body.appendChild(tooltipEl); }
                         const tooltipModel = context.tooltip;
-                        if (tooltipModel.opacity === 0) {
-                            tooltipEl.style.opacity = 0;
-                            tooltipEl.style.transform = 'translate(-50%, -120%) scale(0.95)'; 
-                            return;
-                        }
+                        if (tooltipModel.opacity === 0) { tooltipEl.style.opacity = 0; tooltipEl.style.transform = 'translate(-50%, -120%) scale(0.95)'; return; }
                         tooltipEl.classList.remove('above', 'below', 'no-transform');
-                        if (tooltipModel.yAlign) tooltipEl.classList.add(tooltipModel.yAlign);
-                        else tooltipEl.classList.add('no-transform');
-                        
+                        if (tooltipModel.yAlign) tooltipEl.classList.add(tooltipModel.yAlign); else tooltipEl.classList.add('no-transform');
                         if (tooltipModel.body) {
-                            const titleLines = tooltipModel.title || [];
-                            const bodyLines = tooltipModel.body.map(item => item.lines);
-                            let innerHtml = '';
+                            const titleLines = tooltipModel.title || []; const bodyLines = tooltipModel.body.map(item => item.lines); let innerHtml = '';
                             titleLines.forEach(title => { innerHtml += '<div style="font-weight: 700; margin-bottom: 8px; font-size: 1.1em;">' + title + '</div>'; });
                             innerHtml += '<table style="width:100%; border-spacing: 0 4px;">'; 
                             bodyLines.forEach((body, i) => {
                                 const colors = tooltipModel.labelColors[i];
-                                let style = 'background:' + colors.backgroundColor;
-                                style += '; border: 2px solid ' + colors.borderColor;
-                                style += '; display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 3px; vertical-align: middle;'; 
+                                let style = 'background:' + colors.backgroundColor + '; border: 2px solid ' + colors.borderColor + '; display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 3px; vertical-align: middle;'; 
                                 const span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
                                 innerHtml += '<tr><td style="padding: 2px 0; font-size: 1em;">' + span + body + '</td></tr>';
                             });
-                            innerHtml += '</table>';
-                            tooltipEl.innerHTML = innerHtml;
+                            innerHtml += '</table>'; tooltipEl.innerHTML = innerHtml;
                         }
                         const position = context.chart.canvas.getBoundingClientRect();
-                        tooltipEl.style.opacity = 1;
-                        tooltipEl.style.position = 'absolute';
+                        tooltipEl.style.opacity = 1; tooltipEl.style.position = 'absolute';
                         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
                         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-                        tooltipEl.style.pointerEvents = 'none';
-                        tooltipEl.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                        tooltipEl.style.pointerEvents = 'none'; tooltipEl.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
                         tooltipEl.style.transform = 'translate(-50%, -110%) scale(1)'; 
                     },
                     callbacks: { title: chartTooltipTitleCallback }
                 },
                 datalabels: { 
-                    color: ccdPalette.white,
-                    anchor: 'end',
-                    align: 'start',
-                    offset: -20, 
+                    color: ccdPalette.white, anchor: 'end', align: 'start', offset: -20, 
                     font: { weight: '600', size: 13, family: 'Inter' },
                     formatter: (value, context) => { 
                         if (context.chart.config.type === 'doughnut' || context.chart.config.type === 'pie') {
-                             const total = context.chart.getDatasetMeta(0).total;
-                             const percentage = (value / total * 100);
+                             const total = context.chart.getDatasetMeta(0).total; const percentage = (value / total * 100);
                              return percentage > 5 ? percentage.toFixed(0) + '%' : ''; 
-                        }
-                        return value;
+                        } return value;
                     }
                 }
             },
             scales: {
-                y: {
-                    ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, 
-                    grid: { color: 'rgba(0, 51, 102, 0.15)' }, 
-                    beginAtZero: true
-                },
-                x: {
-                    ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, 
-                    grid: { display: false } 
-                }
+                y: { ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, grid: { color: 'rgba(0, 51, 102, 0.15)' }, beginAtZero: true },
+                x: { ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, grid: { display: false } }
             }
         };
 
         const evanstonTurnoutCtx = document.getElementById('evanstonTurnoutChart').getContext('2d');
-        new Chart(evanstonTurnoutCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Evanston PB Turnout', 'Typical US PB Turnout', 'Non-Voters (Context)'],
-                datasets: [{
-                    label: 'Voter Turnout Comparison',
-                    data: [8.5, 1, 90.5], 
-                    backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue, ccdPalette.lightGray],
-                    borderColor: ccdPalette.white,
-                    borderWidth: 4, 
-                    hoverOffset: 10 
-                }]
-            },
-            options: { ...defaultChartOptions, cutout: '70%', plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.deepBlue, anchor: 'center', align: 'center', offset:0, font: {size: 14, weight: 'bold'}, formatter: (v,c)=> { const label = c.chart.data.labels[c.dataIndex].split('(')[0].trim(); return v > 3 ? label + '\n' + v + '%' : ''; }  }}}
+        new Chart(evanstonTurnoutCtx, { /* ... (Evanston Turnout Chart config from previous version) ... */ 
+            type: 'doughnut', data: { labels: ['Evanston PB Turnout', 'Typical US PB Turnout', 'Non-Voters (Context)'], datasets: [{ label: 'Voter Turnout Comparison', data: [8.5, 1, 90.5], backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue, ccdPalette.lightGray], borderColor: ccdPalette.white, borderWidth: 4, hoverOffset: 10 }] }, options: { ...defaultChartOptions, cutout: '70%', plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.deepBlue, anchor: 'center', align: 'center', offset:0, font: {size: 14, weight: 'bold'}, formatter: (v,c)=> { const label = c.chart.data.labels[c.dataIndex].split('(')[0].trim(); return v > 3 ? label + '\n' + v + '%' : ''; }  }}}
         });
-
         const evanstonProjectsCtx = document.getElementById('evanstonProjectsChart').getContext('2d');
         const evanstonProjectLabels = ['Affordable Housing', 'Marginalized Student Support', 'Refugee Housing', 'Urban Farm', 'Youth Drop-In Center', 'Small Business Grants', 'Mental Health Training'].map(label => wrapLabels(label, 22)); 
-        new Chart(evanstonProjectsCtx, {
-            type: 'bar',
-            data: {
-                labels: evanstonProjectLabels,
-                datasets: [{
-                    label: 'Funding (USD)',
-                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
-                    backgroundColor: ccdPalette.sbmAccentText,
-                    borderColor: ccdPalette.sbmBrandText,
-                    borderWidth: 1.5, 
-                    borderRadius: 5, 
-                    hoverBackgroundColor: ccdPalette.accentTeal
-                }]
-            },
-            options: { 
-                ...defaultChartOptions, 
-                indexAxis: 'y', 
-                plugins: {...defaultChartOptions.plugins, legend: {display: false}, datalabels: {...defaultChartOptions.plugins.datalabels, anchor: 'end', align: 'right', color: ccdPalette.sbmBrandText, offset: 10, font: {size:13, weight:'600'}, formatter: (v) => '$' + (v/1000) + 'k'}},
-                scales: { x: { ...defaultChartOptions.scales.x, ticks: { ...defaultChartOptions.scales.x.ticks, callback: (v) => '$' + (v/1000) + 'k'} }, y: { ...defaultChartOptions.scales.y, ticks: {...defaultChartOptions.scales.y.ticks, font: {size:11} } } } 
-            }
+        new Chart(evanstonProjectsCtx, { /* ... (Evanston Projects Chart config from previous version) ... */ 
+            type: 'bar', data: { labels: evanstonProjectLabels, datasets: [{ label: 'Funding (USD)', data: [810000, 700000, 645000, 350000, 210000, 150000, 50000], backgroundColor: ccdPalette.sbmAccentText, borderColor: ccdPalette.sbmBrandText, borderWidth: 1.5, borderRadius: 5, hoverBackgroundColor: ccdPalette.accentTeal }] }, options: { ...defaultChartOptions, indexAxis: 'y', plugins: {...defaultChartOptions.plugins, legend: {display: false}, datalabels: {...defaultChartOptions.plugins.datalabels, anchor: 'end', align: 'right', color: ccdPalette.sbmBrandText, offset: 10, font: {size:13, weight:'600'}, formatter: (v) => '$' + (v/1000) + 'k'}}, scales: { x: { ...defaultChartOptions.scales.x, ticks: { ...defaultChartOptions.scales.x.ticks, callback: (v) => '$' + (v/1000) + 'k'} }, y: { ...defaultChartOptions.scales.y, ticks: {...defaultChartOptions.scales.y.ticks, font: {size:11} } } } }
+        });
+        const cambridgeTurnoutCtx = document.getElementById('cambridgeTurnoutChart').getContext('2d');
+        new Chart(cambridgeTurnoutCtx, { /* ... (Cambridge Turnout Chart config from previous version) ... */ 
+            type: 'line', data: { labels: ['PB9 (FY24)', 'PB10 (FY25)', 'PB11 (FY26)'], datasets: [{ label: 'Voters', data: [8768, 10522, 10110], backgroundColor: Chart.helpers.color(ccdPalette.sbmAccentText).alpha(0.25).rgbString(), borderColor: ccdPalette.sbmAccentText, borderWidth: 2.5, tension: 0.35, fill: true, pointBackgroundColor: ccdPalette.sbmAccentText, pointBorderColor: ccdPalette.white, pointHoverBackgroundColor: ccdPalette.white, pointHoverBorderColor: ccdPalette.sbmAccentText, pointRadius: 6, pointHoverRadius: 9 }] }, options: {...defaultChartOptions, plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, align:'top', offset: 10, color: ccdPalette.sbmBrandText, font:{size:13, weight:'600'}}}}
+        });
+        const motivoteImpactCtx = document.getElementById('motivoteImpactChart').getContext('2d');
+        new Chart(motivoteImpactCtx, { /* ... (Motivote Impact Chart config from previous version) ... */ 
+            type: 'pie', data: { labels: ['Youth (18-29) Target', 'Other Ages (Conceptual)'], datasets: [{ data: [40, 60], backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue], borderColor: ccdPalette.white, borderWidth: 4, hoverOffset: 10 }] }, options: { ...defaultChartOptions, plugins: { ...defaultChartOptions.plugins, legend: { position: 'right', labels: {...defaultChartOptions.plugins.legend.labels, boxWidth: 15, padding: 15} }, title: { display: false }, datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.white, font:{size:14, weight:'bold'}, formatter: (v,c)=> v + '%'} } }
+        });
+
+        // Read More Functionality
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.previousElementSibling;
+                content.classList.toggle('expanded');
+                if (content.classList.contains('expanded')) {
+                    this.textContent = 'Read Less';
+                } else {
+                    this.textContent = 'Read More';
+                }
+            });
         });
         
-        const cambridgeTurnoutCtx = document.getElementById('cambridgeTurnoutChart').getContext('2d');
-        new Chart(cambridgeTurnoutCtx, {
-            type: 'line',
-            data: {
-                labels: ['PB9 (FY24)', 'PB10 (FY25)', 'PB11 (FY26)'],
-                datasets: [{
-                    label: 'Voters',
-                    data: [8768, 10522, 10110], 
-                    backgroundColor: Chart.helpers.color(ccdPalette.sbmAccentText).alpha(0.25).rgbString(), 
-                    borderColor: ccdPalette.sbmAccentText,
-                    borderWidth: 2.5, 
-                    tension: 0.35, 
-                    fill: true,
-                    pointBackgroundColor: ccdPalette.sbmAccentText,
-                    pointBorderColor: ccdPalette.white,
-                    pointHoverBackgroundColor: ccdPalette.white,
-                    pointHoverBorderColor: ccdPalette.sbmAccentText,
-                    pointRadius: 6, 
-                    pointHoverRadius: 9 
-                }]
-            },
-            options: {...defaultChartOptions, plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, align:'top', offset: 10, color: ccdPalette.sbmBrandText, font:{size:13, weight:'600'}}}}
-        });
-
-        const motivoteImpactCtx = document.getElementById('motivoteImpactChart').getContext('2d');
-        new Chart(motivoteImpactCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Youth (18-29) Target', 'Other Ages (Conceptual)'],
-                datasets: [{
-                    data: [40, 60], 
-                    backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue],
-                    borderColor: ccdPalette.white,
-                    borderWidth: 4, 
-                    hoverOffset: 10 
-                }]
-            },
-            options: { ...defaultChartOptions, 
-                plugins: { 
-                    ...defaultChartOptions.plugins, 
-                    legend: { position: 'right', labels: {...defaultChartOptions.plugins.legend.labels, boxWidth: 15, padding: 15} }, 
-                    title: { display: false }, 
-                    datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.white, font:{size:14, weight:'bold'}, formatter: (v,c)=> v + '%'}
-                }
-            }
-        });
-
+        // Active Nav Link highlighting on scroll & other JS functions from previous version
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('#mainNav a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) { 
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
+        window.addEventListener('scroll', () => { /* ... (scroll highlighting logic from previous version) ... */ 
+            let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (pageYOffset >= sectionTop - 150) { current = section.getAttribute('id'); } });
+            navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href').includes(current)) { link.classList.add('active'); } });
         });
         
-        function showCcdAlert(message, title = 'Notification') {
-            const modal = document.getElementById('ccdAlertModal');
-            const modalContent = document.getElementById('alertModalContent');
-            document.getElementById('ccdAlertTitle').innerText = title;
-            document.getElementById('ccdAlertMessage').innerText = message;
-            
-            modal.style.display = 'flex';
-            void modalContent.offsetWidth; 
-            modalContent.style.transform = 'scale(1)';
-            modalContent.style.opacity = '1';
-
+        function showCcdAlert(message, title = 'Notification') { /* ... (alert modal logic from previous version) ... */ 
+            const modal = document.getElementById('ccdAlertModal'); const modalContent = document.getElementById('alertModalContent');
+            document.getElementById('ccdAlertTitle').innerText = title; document.getElementById('ccdAlertMessage').innerText = message;
+            modal.style.display = 'flex'; void modalContent.offsetWidth; 
+            modalContent.style.transform = 'scale(1)'; modalContent.style.opacity = '1';
             document.getElementById('okBtn').onclick = function() {
-                modalContent.style.transform = 'scale(0.95)';
-                modalContent.style.opacity = '0';
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 300); 
+                modalContent.style.transform = 'scale(0.95)'; modalContent.style.opacity = '0';
+                setTimeout(() => { modal.style.display = 'none'; }, 300); 
             };
         }
     </script>
