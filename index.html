@@ -6,7 +6,7 @@
     <title>Small but Mighty: Transforming Democracy Through Citizen Engagement</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,143 +14,272 @@
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f6 100%);
-            color: #003366;
-            overflow-x: hidden;
+        html {
+            scroll-behavior: smooth;
         }
         
-        /* Brand Colors */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Brand Colors & Variables */
         :root {
-            --deep-blue: #003366;
-            --medium-blue: #336699;
-            --accent-teal: #009688;
-            --brand-blue: #005A87;
-            --accent-aqua: #00A99D;
-            --light-gray: #F0F4F8;
-            --white: #FFFFFF;
-            --yellow-highlight: #FFC107;
-            --soft-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+            --deep-blue: #0f172a;
+            --medium-blue: #1e293b;
+            --accent-teal: #06b6d4;
+            --brand-blue: #0ea5e9;
+            --accent-aqua: #22d3ee;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --yellow-highlight: #fbbf24;
+            --green-success: #10b981;
+            --red-alert: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            --gradient-secondary: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+            --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
         
-        /* Header Section */
+        /* Enhanced Header with Parallax */
         .header {
-            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--brand-blue) 100%);
+            background: var(--gradient-primary);
             color: white;
-            padding: 60px 0;
+            padding: 120px 0 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 169, 157, 0.1) 0%, transparent 70%);
-            animation: pulse 10s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="300" r="2" fill="rgba(255,255,255,0.15)"/><circle cx="600" cy="600" r="4" fill="rgba(255,255,255,0.08)"/><circle cx="100" cy="700" r="2" fill="rgba(255,255,255,0.12)"/><circle cx="900" cy="800" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s ease-in-out infinite;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.3; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        .logo-section {
-            margin-bottom: 30px;
+        .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.15);
+            padding: 16px 32px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 48px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-badge:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         
         .main-title {
-            font-size: 3.5rem;
+            font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
+        .main-subtitle {
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            font-weight: 400;
             opacity: 0.9;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 48px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .highlight {
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+        
+        .hero-stat {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .hero-stat:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+        
+        .hero-stat-number {
+            font-size: 3rem;
+            font-weight: 900;
             color: var(--accent-aqua);
-            text-shadow: 0 0 20px rgba(0, 169, 157, 0.5);
+            text-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+            display: block;
+            margin-bottom: 8px;
         }
         
-        /* Trust Crisis Section */
-        .trust-crisis {
+        .hero-stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Crisis Section with Interactive Elements */
+        .crisis-section {
             background: white;
-            padding: 80px 0;
+            padding: 120px 0;
             position: relative;
+        }
+        
+        .crisis-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .crisis-text h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: var(--deep-blue);
+            margin-bottom: 32px;
+            line-height: 1.2;
+        }
+        
+        .crisis-text p {
+            font-size: 1.25rem;
+            color: var(--medium-blue);
+            margin-bottom: 24px;
+        }
+        
+        .trust-meter {
+            position: relative;
+            width: 100%;
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 32px 0;
+        }
+        
+        .trust-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 18%;
+            border-radius: 12px;
+            position: relative;
+            animation: fillTrust 2s ease-out;
+        }
+        
+        @keyframes fillTrust {
+            from { width: 0%; }
+            to { width: 18%; }
+        }
+        
+        .trust-fill::after {
+            content: '18%';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
         }
         
         .crisis-visual {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 40px;
+            position: relative;
         }
         
-        .crisis-stat {
-            text-align: center;
-            flex: 1;
-            min-width: 250px;
+        .crisis-chart {
+            width: 100%;
+            height: 400px;
+            position: relative;
         }
         
-        .big-number {
-            font-size: 6rem;
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--medium-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-        }
-        
-        .crisis-label {
-            font-size: 1.2rem;
-            color: var(--medium-blue);
-        }
-        
-        /* Solution Overview */
-        .solutions-overview {
+        /* Solutions Grid */
+        .solutions-section {
             background: var(--light-gray);
-            padding: 80px 0;
+            padding: 120px 0;
         }
         
-        .solution-cards {
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: var(--deep-blue);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--medium-blue);
+            font-weight: 400;
+        }
+        
+        .solutions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
         }
         
         .solution-card {
             background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: var(--soft-shadow);
-            transition: all 0.3s ease;
-            border-top: 5px solid var(--accent-aqua);
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
@@ -161,551 +290,1287 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
+            height: 6px;
+            background: var(--gradient-secondary);
         }
         
         .solution-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
         }
         
+        .solution-card:nth-child(1)::before { background: var(--gradient-primary); }
+        .solution-card:nth-child(2)::before { background: var(--gradient-secondary); }
+        .solution-card:nth-child(3)::before { background: var(--gradient-accent); }
+        
         .solution-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 24px;
+            display: block;
         }
         
         .solution-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--deep-blue);
-            margin-bottom: 15px;
-        }
-        
-        .solution-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #555;
-        }
-        
-        /* Participatory Budgeting Section */
-        .pb-section {
-            background: white;
-            padding: 80px 0;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--deep-blue);
-            margin-bottom: 20px;
-        }
-        
-        .section-subtitle {
-            font-size: 1.3rem;
-            color: var(--medium-blue);
-        }
-        
-        .pb-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 50px;
-        }
-        
-        .city-showcase {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-        }
-        
-        .city-name {
             font-size: 2rem;
             font-weight: 700;
             color: var(--deep-blue);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
-        .city-stats {
+        .solution-description {
+            font-size: 1.125rem;
+            color: var(--medium-blue);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+        
+        .solution-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 24px;
         }
         
-        .stat-box {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
+        .metric-box {
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-md);
         }
         
-        .stat-value {
+        .metric-value {
             font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-aqua);
+            font-weight: 900;
+            color: var(--brand-blue);
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--medium-blue);
+            font-weight: 500;
+        }
+        
+        /* Case Studies Section */
+        .case-studies {
+            background: white;
+            padding: 120px 0;
+        }
+        
+        .case-study-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 64px;
+            gap: 8px;
+            background: var(--light-gray);
+            padding: 8px;
+            border-radius: var(--border-radius-lg);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tab-button {
+            padding: 16px 32px;
+            border: none;
+            background: transparent;
+            color: var(--medium-blue);
+            font-weight: 600;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .tab-button.active {
+            background: white;
+            color: var(--brand-blue);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        
+        .city-profile {
+            background: var(--light-gray);
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            position: relative;
+        }
+        
+        .city-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .city-flag {
+            width: 64px;
+            height: 48px;
+            border-radius: var(--border-radius-sm);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .city-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 4px;
+        }
+        
+        .city-info p {
+            color: var(--medium-blue);
+            font-size: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1;
         }
         
         .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
+            font-size: 0.875rem;
+            color: var(--medium-blue);
+            font-weight: 500;
         }
         
-        /* Citizens Assembly Section */
-        .ca-section {
+        .case-visualization {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin-bottom: 32px;
+        }
+        
+        .project-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .project-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+        }
+        
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 1.5rem;
+        }
+        
+        .project-details h4 {
+            font-weight: 600;
+            color: var(--deep-blue);
+            margin-bottom: 4px;
+        }
+        
+        .project-details p {
+            color: var(--medium-blue);
+            font-size: 0.875rem;
+        }
+        
+        .project-amount {
+            margin-left: auto;
+            font-weight: 700;
+            color: var(--brand-blue);
+            font-size: 1.125rem;
+        }
+        
+        /* Citizens Assembly Process */
+        .assembly-process {
             background: var(--light-gray);
-            padding: 80px 0;
+            padding: 120px 0;
         }
         
-        .process-flow {
+        .process-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 64px auto 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            z-index: 1;
+        }
+        
+        .process-steps {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin: 50px 0;
             position: relative;
+            z-index: 2;
         }
         
         .process-step {
             background: white;
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--soft-shadow);
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            cursor: pointer;
             position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
         }
         
         .process-step:hover {
             transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
         }
         
         .step-icon {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .step-label {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-align: center;
+            color: var(--medium-blue);
+            line-height: 1.2;
         }
         
-        .process-connector {
+        .step-tooltip {
             position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
-            z-index: 1;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--deep-blue);
+            color: white;
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
         }
         
-        /* Civic Tech Section */
+        .step-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--deep-blue);
+        }
+        
+        .process-step:hover .step-tooltip {
+            opacity: 1;
+        }
+        
+        /* Technology Section */
         .tech-section {
             background: white;
-            padding: 80px 0;
+            padding: 120px 0;
         }
         
         .tech-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 48px;
+            margin-top: 64px;
         }
         
         .tech-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            padding: 40px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-accent);
+        }
+        
+        .tech-card:nth-child(even)::before {
+            background: var(--gradient-primary);
+        }
+        
+        .tech-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .tech-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--border-radius-md);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .tech-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 8px;
+        }
+        
+        .tech-subtitle {
+            color: var(--medium-blue);
+            font-size: 1rem;
+        }
+        
+        .tech-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 32px 0;
+        }
+        
+        .tech-metric {
+            text-align: center;
+            padding: 24px;
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tech-metric-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .tech-metric-label {
+            font-size: 0.875rem;
+            color: var(--medium-blue);
+        }
+        
+        /* Impact Dashboard */
+        .impact-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0;
             position: relative;
             overflow: hidden;
         }
         
-        .tech-impact {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            margin-top: 30px;
+        .impact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.15)"/><circle cx="60" cy="70" r="2.5" fill="rgba(255,255,255,0.08)"/><circle cx="10" cy="80" r="1" fill="rgba(255,255,255,0.12)"/><circle cx="90" cy="90" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: sparkle 15s linear infinite;
         }
         
-        /* Impact Dashboard */
-        .impact-dashboard {
-            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--brand-blue) 100%);
-            color: white;
-            padding: 80px 0;
+        @keyframes sparkle {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
         }
         
         .impact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+            position: relative;
+            z-index: 2;
         }
         
-        .impact-metric {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
+        .impact-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-xl);
+            padding: 40px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
         
-        .impact-metric:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
+        .impact-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
         }
         
-        .metric-value {
-            font-size: 3rem;
+        .impact-value {
+            font-size: clamp(3rem, 5vw, 4rem);
             font-weight: 900;
             color: var(--accent-aqua);
-            text-shadow: 0 0 20px rgba(0, 169, 157, 0.5);
+            text-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+            display: block;
+            margin-bottom: 16px;
+            line-height: 1;
         }
         
-        .metric-label {
-            font-size: 1.1rem;
-            margin-top: 10px;
-            opacity: 0.9;
+        .impact-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 12px;
+        }
+        
+        .impact-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        /* Design Principles */
+        .principles-section {
+            background: white;
+            padding: 120px 0;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+        
+        .principle-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius-xl);
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+            border-left: 6px solid var(--brand-blue);
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .principle-card:nth-child(odd) { border-left-color: var(--accent-teal); }
+        .principle-card:nth-child(even) { border-left-color: var(--brand-blue); }
+        
+        .principle-icon {
+            font-size: 3rem;
+            margin-bottom: 24px;
+            display: block;
+        }
+        
+        .principle-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 16px;
+        }
+        
+        .principle-description {
+            color: var(--medium-blue);
+            line-height: 1.6;
         }
         
         /* Call to Action */
         .cta-section {
-            background: white;
-            padding: 80px 0;
+            background: var(--deep-blue);
+            color: white;
+            padding: 120px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 32px;
+            line-height: 1.2;
+        }
+        
+        .cta-text {
+            font-size: 1.5rem;
+            margin-bottom: 48px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gradient-secondary);
             color: white;
-            padding: 20px 50px;
-            font-size: 1.3rem;
+            padding: 20px 40px;
+            font-size: 1.125rem;
             font-weight: 700;
             border-radius: 50px;
             text-decoration: none;
-            box-shadow: 0 10px 30px rgba(0, 169, 157, 0.3);
-            transition: all 0.3s ease;
-            margin-top: 30px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
         }
         
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 169, 157, 0.4);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
         
-        /* Charts */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            margin: 30px 0;
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
         
         /* Animations */
-        .fade-in {
-            animation: fadeIn 0.8s ease-in-out;
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        /* Responsive */
+        .stagger-animation:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-animation:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-animation:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-animation:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-animation:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-animation:nth-child(6) { transition-delay: 0.6s; }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .case-study-grid,
+            .crisis-content {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .main-title { font-size: 2.5rem; }
-            .section-title { font-size: 2rem; }
-            .big-number { font-size: 4rem; }
-            .pb-comparison { grid-template-columns: 1fr; }
-            .process-flow { flex-direction: column; gap: 30px; }
-            .process-connector { display: none; }
+            .hero-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            
+            .solutions-grid,
+            .tech-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 32px;
+            }
+            
+            .timeline-line {
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                right: auto;
+                width: 4px;
+                height: auto;
+                transform: translateX(-50%);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-button {
+                padding: 12px 20px;
+                font-size: 0.875rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus styles */
+        .tab-button:focus,
+        .cta-button:focus {
+            outline: 2px solid var(--accent-aqua);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Enhanced Header -->
     <header class="header">
         <div class="container">
-            <div class="logo-section">
-                <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 50px; backdrop-filter: blur(10px);">
-                    <span style="font-size: 1.5rem; font-weight: 700;">Small but Mighty Cities</span>
-                    <span style="font-size: 1rem; opacity: 0.8;">| Center for Civic Design</span>
+            <div class="hero-content">
+                <div class="logo-badge animate-on-scroll">
+                    <span style="font-size: 1.25rem; font-weight: 700;">Small but Mighty Cities</span>
+                    <span style="opacity: 0.8;">Center for Civic Design</span>
+                </div>
+                
+                <h1 class="main-title animate-on-scroll">
+                    Democracy Reimagined
+                    <br>One Community at a Time
+                </h1>
+                
+                <p class="main-subtitle animate-on-scroll">
+                    How small-scale civic innovations are rebuilding trust, 
+                    empowering citizens, and transforming democracy from the ground up
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat animate-on-scroll stagger-animation">
+                        <span class="hero-stat-number" data-counter="16675">0</span>
+                        <span class="hero-stat-label">Citizens Voted in PB</span>
+                    </div>
+                    <div class="hero-stat animate-on-scroll stagger-animation">
+                        <span class="hero-stat-number" data-counter="13.6">0</span>
+                        <span class="hero-stat-label">Million Dollars Allocated</span>
+                    </div>
+                    <div class="hero-stat animate-on-scroll stagger-animation">
+                        <span class="hero-stat-number" data-counter="86">0</span>
+                        <span class="hero-stat-label">Community Projects</span>
+                    </div>
+                    <div class="hero-stat animate-on-scroll stagger-animation">
+                        <span class="hero-stat-number" data-counter="5">0</span>
+                        <span class="hero-stat-label">Million Voters Reached</span>
+                    </div>
                 </div>
             </div>
-            <h1 class="main-title fade-in">
-                Transforming Democracy<br>
-                <span class="highlight">One Community at a Time</span>
-            </h1>
-            <p class="subtitle fade-in">How local initiatives are rebuilding trust and engagement in government</p>
         </div>
     </header>
 
-    <!-- Trust Crisis -->
-    <section class="trust-crisis">
+    <!-- Crisis Section -->
+    <section class="crisis-section">
         <div class="container">
-            <h2 class="section-title" style="text-align: center;">The Trust Crisis</h2>
-            <div class="crisis-visual">
-                <div class="crisis-stat fade-in">
-                    <div class="big-number">18%</div>
-                    <div class="crisis-label">Americans who trust<br>the federal government</div>
+            <div class="crisis-content">
+                <div class="crisis-text animate-on-scroll">
+                    <h2>The Trust Crisis in Democracy</h2>
+                    <p>Only <strong>18% of Americans</strong> consistently trust the federal government to do what's right.</p>
+                    <p>Voter turnout lags behind other developed nations. Citizens feel disconnected from decisions that affect their daily lives.</p>
+                    
+                    <div class="trust-meter">
+                        <div class="trust-fill"></div>
+                    </div>
+                    
+                    <p style="color: var(--green-success); font-weight: 600; font-size: 1.125rem;">
+                        But there's hope: Participatory processes increase voter turnout by <strong>+7%</strong>
+                    </p>
                 </div>
-                <div style="font-size: 4rem; color: var(--medium-blue);">→</div>
-                <div class="crisis-stat fade-in">
-                    <div class="big-number" style="color: var(--accent-aqua);">+7%</div>
-                    <div class="crisis-label">Increased voting after<br>participatory budgeting</div>
+                
+                <div class="crisis-visual animate-on-scroll">
+                    <div class="crisis-chart">
+                        <canvas id="trustChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Solutions Overview -->
-    <section class="solutions-overview">
+    <section class="solutions-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Three Powerful Solutions</h2>
-                <p class="section-subtitle">Small-scale initiatives with mighty impact</p>
+                <p class="section-subtitle">Small-scale initiatives with transformative impact</p>
             </div>
-            <div class="solution-cards">
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">💰</div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card animate-on-scroll stagger-animation">
+                    <span class="solution-icon">💰</span>
                     <h3 class="solution-title">Participatory Budgeting</h3>
-                    <p class="solution-description">Communities directly decide how to spend public money, from idea generation to voting on projects.</p>
-                    <div style="margin-top: 30px;">
-                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">$13.6M+</div>
-                        <div style="font-size: 0.9rem; color: #666;">Allocated by communities</div>
+                    <p class="solution-description">
+                        Communities directly decide how public money is spent through democratic processes 
+                        that include idea generation, proposal development, and public voting.
+                    </p>
+                    <div class="solution-metrics">
+                        <div class="metric-box">
+                            <span class="metric-value">$13.6M</span>
+                            <span class="metric-label">Community Allocated</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-value">86</span>
+                            <span class="metric-label">Projects Funded</span>
+                        </div>
                     </div>
                 </div>
-                <div class="solution-card fade-in" style="animation-delay: 0.1s;">
-                    <div class="solution-icon">👥</div>
+                
+                <div class="solution-card animate-on-scroll stagger-animation">
+                    <span class="solution-icon">👥</span>
                     <h3 class="solution-title">Citizens' Assemblies</h3>
-                    <p class="solution-description">Randomly selected residents learn about issues and make policy recommendations through deliberation.</p>
-                    <div style="margin-top: 30px;">
-                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">54</div>
-                        <div style="font-size: 0.9rem; color: #666;">Citizens shaping policy</div>
+                    <p class="solution-description">
+                        Randomly selected residents learn about complex issues and make policy 
+                        recommendations through structured deliberation and expert testimony.
+                    </p>
+                    <div class="solution-metrics">
+                        <div class="metric-box">
+                            <span class="metric-value">54</span>
+                            <span class="metric-label">Assembly Members</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-value">75%</span>
+                            <span class="metric-label">Consensus Required</span>
+                        </div>
                     </div>
                 </div>
-                <div class="solution-card fade-in" style="animation-delay: 0.2s;">
-                    <div class="solution-icon">📱</div>
+                
+                <div class="solution-card animate-on-scroll stagger-animation">
+                    <span class="solution-icon">📱</span>
                     <h3 class="solution-title">Civic Technology</h3>
-                    <p class="solution-description">Digital tools that make participation easier and more accessible for all demographics.</p>
-                    <div style="margin-top: 30px;">
-                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">5M+</div>
-                        <div style="font-size: 0.9rem; color: #666;">Voters served by tech</div>
+                    <p class="solution-description">
+                        Digital platforms and tools that make democratic participation more 
+                        accessible, engaging, and effective for all demographics.
+                    </p>
+                    <div class="solution-metrics">
+                        <div class="metric-box">
+                            <span class="metric-value">5M+</span>
+                            <span class="metric-label">Voters Served</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-value">+10%</span>
+                            <span class="metric-label">Turnout Increase</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Participatory Budgeting Deep Dive -->
-    <section class="pb-section">
+    <!-- Case Studies with Tabs -->
+    <section class="case-studies">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Participatory Budgeting in Action</h2>
-                <p class="section-subtitle">Two cities, two approaches, one powerful outcome</p>
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Case Studies: Democracy in Action</h2>
+                <p class="section-subtitle">Real communities, real results, real impact</p>
             </div>
-            <div class="pb-comparison">
-                <div class="city-showcase fade-in">
-                    <h3 class="city-name">Evanston, Illinois</h3>
-                    <div class="city-stats">
-                        <div class="stat-box">
-                            <div class="stat-value">$3M</div>
-                            <div class="stat-label">ARPA Funds</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">8.5%</div>
-                            <div class="stat-label">Voter Turnout</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">1,300+</div>
-                            <div class="stat-label">Ideas Submitted</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">7</div>
-                            <div class="stat-label">Projects Funded</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="evanstonChart"></canvas>
-                    </div>
-                    <p style="margin-top: 20px; font-style: italic; color: #666;">
-                        "Our residents' ideas and involvement are truly our greatest asset" - Mayor Daniel Biss
-                    </p>
-                </div>
-                <div class="city-showcase fade-in" style="animation-delay: 0.1s;">
-                    <h3 class="city-name">Cambridge, Massachusetts</h3>
-                    <div class="city-stats">
-                        <div class="stat-box">
-                            <div class="stat-value">11</div>
-                            <div class="stat-label">Years Running</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">$10.6M</div>
-                            <div class="stat-label">Total Invested</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">79</div>
-                            <div class="stat-label">Projects Funded</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">10,522</div>
-                            <div class="stat-label">Peak Voters</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="cambridgeChart"></canvas>
-                    </div>
-                    <p style="margin-top: 20px; font-style: italic; color: #666;">
-                        Middle schoolers successfully proposed free menstrual products in schools
-                    </p>
-                </div>
+            
+            <div class="case-study-tabs animate-on-scroll">
+                <button class="tab-button active" data-tab="participatory-budgeting">Participatory Budgeting</button>
+                <button class="tab-button" data-tab="citizens-assemblies">Citizens' Assemblies</button>
+                <button class="tab-button" data-tab="civic-tech">Civic Technology</button>
             </div>
-        </div>
-    </section>
-
-    <!-- Citizens Assemblies -->
-    <section class="ca-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Citizens' Assemblies: Deliberative Democracy</h2>
-                <p class="section-subtitle">Ordinary citizens tackling complex policy challenges</p>
-            </div>
-            <div class="process-flow">
-                <div class="process-connector"></div>
-                <div class="process-step fade-in">
-                    <div class="step-icon">📬</div>
-                    <div class="step-label">Random<br>Selection</div>
+            
+            <!-- Participatory Budgeting Tab -->
+            <div id="participatory-budgeting" class="tab-content active">
+                <div class="case-study-grid">
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="city-flag">E</div>
+                            <div class="city-info">
+                                <h3>Evanston, Illinois</h3>
+                                <p>Population: 78,000 • First-time PB with ARPA funds</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">$3M</span>
+                                <span class="stat-label">ARPA Funds</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">8.5%</span>
+                                <span class="stat-label">Voter Turnout</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">1,300+</span>
+                                <span class="stat-label">Ideas Submitted</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">6,565</span>
+                                <span class="stat-label">Residents Voted</span>
+                            </div>
+                        </div>
+                        
+                        <blockquote style="margin-top: 32px; padding: 24px; background: white; border-radius: var(--border-radius-md); border-left: 4px solid var(--brand-blue); font-style: italic; color: var(--medium-blue);">
+                            "The historic level of turnout in our participatory budgeting process is another demonstration of Evanston's passionate and engaged citizenry."
+                            <footer style="margin-top: 12px; font-size: 0.875rem; color: var(--deep-blue); font-weight: 600;">
+                                — Mayor Daniel Biss
+                            </footer>
+                        </blockquote>
+                    </div>
+                    
+                    <div class="case-visualization">
+                        <h4 style="font-size: 1.5rem; margin-bottom: 24px; color: var(--deep-blue);">Funded Projects</h4>
+                        <div class="chart-container">
+                            <canvas id="evanstonChart"></canvas>
+                        </div>
+                        
+                        <ul class="project-list">
+                            <li class="project-item">
+                                <div class="project-icon">🏠</div>
+                                <div class="project-details">
+                                    <h4>Affordable Housing Subsidy</h4>
+                                    <p>Direct support for low-income residents</p>
+                                </div>
+                                <div class="project-amount">$810K</div>
+                            </li>
+                            <li class="project-item">
+                                <div class="project-icon">🎓</div>
+                                <div class="project-details">
+                                    <h4>Education Support for Marginalized Students</h4>
+                                    <p>Grants for activities and educational support</p>
+                                </div>
+                                <div class="project-amount">$700K</div>
+                            </li>
+                            <li class="project-item">
+                                <div class="project-icon">🏡</div>
+                                <div class="project-details">
+                                    <h4>Affordable Refugee Housing</h4>
+                                    <p>Housing support for refugees</p>
+                                </div>
+                                <div class="project-amount">$645K</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="process-step fade-in" style="animation-delay: 0.1s;">
-                    <div class="step-icon">📚</div>
-                    <div class="step-label">Learning<br>Phase</div>
-                </div>
-                <div class="process-step fade-in" style="animation-delay: 0.2s;">
-                    <div class="step-icon">💬</div>
-                    <div class="step-label">Deliberation</div>
-                </div>
-                <div class="process-step fade-in" style="animation-delay: 0.3s;">
-                    <div class="step-icon">📝</div>
-                    <div class="step-label">Consensus<br>Building</div>
-                </div>
-                <div class="process-step fade-in" style="animation-delay: 0.4s;">
-                    <div class="step-icon">🎯</div>
-                    <div class="step-label">Policy<br>Impact</div>
+                
+                <!-- Cambridge Section -->
+                <div class="case-study-grid" style="margin-top: 64px;">
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="city-flag">C</div>
+                            <div class="city-info">
+                                <h3>Cambridge, Massachusetts</h3>
+                                <p>Population: 118,000 • 11 years of PB experience</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">11</span>
+                                <span class="stat-label">Years Running</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">$10.6M</span>
+                                <span class="stat-label">Total Invested</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">79</span>
+                                <span class="stat-label">Projects Funded</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">10,522</span>
+                                <span class="stat-label">Peak Voters (PB10)</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 32px; padding: 24px; background: white; border-radius: var(--border-radius-md);">
+                            <h4 style="color: var(--deep-blue); margin-bottom: 16px;">Key Innovation</h4>
+                            <p style="color: var(--medium-blue);">
+                                Voting age lowered to 12, with middle school students successfully proposing 
+                                free menstrual products in schools and libraries.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="case-visualization">
+                        <h4 style="font-size: 1.5rem; margin-bottom: 24px; color: var(--deep-blue);">Participation Growth</h4>
+                        <div class="chart-container">
+                            <canvas id="cambridgeChart"></canvas>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;">
+                            <div style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius-md); text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--brand-blue);">9</div>
+                                <div style="font-size: 0.875rem; color: var(--medium-blue);">Languages Supported</div>
+                            </div>
+                            <div style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius-md); text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--brand-blue);">12+</div>
+                                <div style="font-size: 0.875rem; color: var(--medium-blue);">Minimum Voting Age</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px;">
-                <div class="tech-card fade-in">
-                    <h3 style="font-size: 1.8rem; color: var(--deep-blue); margin-bottom: 20px;">Gibsons, BC (Pop. 5,093)</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>First in Canada to integrate CA into official planning</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>25 residents met for 30-40 hours</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>75% consensus required for recommendations</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>All 6 recommendations prioritized by Council</span>
-                        </li>
-                    </ul>
+            <!-- Citizens' Assemblies Tab -->
+            <div id="citizens-assemblies" class="tab-content">
+                <div class="case-study-grid">
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="city-flag">G</div>
+                            <div class="city-info">
+                                <h3>Gibsons, BC</h3>
+                                <p>Population: 5,093 • First in Canada to integrate CA into official planning</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">25</span>
+                                <span class="stat-label">Assembly Members</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">274</span>
+                                <span class="stat-label">Volunteers</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">6</span>
+                                <span class="stat-label">Recommendations</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Council Adoption</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <h4 style="color: var(--deep-blue); margin-bottom: 16px;">Process Highlights</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>30-40 hours of deliberation over 5 Sundays</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>75% consensus required for recommendations</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>C$225 honorarium per session</span>
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>All recommendations prioritized by Council</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="city-flag">E</div>
+                            <div class="city-info">
+                                <h3>Eugene, Oregon</h3>
+                                <p>Population: 177,899 • Housing policy citizen review panel</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">29</span>
+                                <span class="stat-label">Panel Members</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">$560</span>
+                                <span class="stat-label">Participant Stipend</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">Comprehensive Reports</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">35</span>
+                                <span class="stat-label">Hours of Meetings</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <h4 style="color: var(--deep-blue); margin-bottom: 16px;">Key Achievement</h4>
+                            <p style="color: var(--medium-blue); margin-bottom: 16px;">
+                                Successfully navigated implementation of Oregon's House Bill 2001 
+                                requiring "middle housing" diversity in single-family zones.
+                            </p>
+                            <p style="color: var(--medium-blue);">
+                                Panel included diverse demographics often missing from traditional 
+                                hearings, especially younger renters and minority communities.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="tech-card fade-in" style="animation-delay: 0.1s;">
-                    <h3 style="font-size: 1.8rem; color: var(--deep-blue); margin-bottom: 20px;">Eugene, OR (Pop. 177,899)</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>Tackled contentious housing policy</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>29 diverse residents selected by lottery</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>Included renters' perspectives often missing</span>
-                        </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
-                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                            <span>Recommendations influenced final policies</span>
-                        </li>
-                    </ul>
+            </div>
+            
+            <!-- Civic Technology Tab -->
+            <div id="civic-tech" class="tab-content">
+                <div class="case-study-grid">
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="tech-logo" style="width: 64px; height: 48px; border-radius: var(--border-radius-sm);">M</div>
+                            <div class="city-info">
+                                <h3>Motivote Platform</h3>
+                                <p>Gamifying youth voter engagement on college campuses</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">18-29</span>
+                                <span class="stat-label">Target Age Range</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">+10%</span>
+                                <span class="stat-label">Potential Turnout Boost</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">Multiple</span>
+                                <span class="stat-label">TX & FL Universities</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">2019</span>
+                                <span class="stat-label">Partnership Since</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <h4 style="color: var(--deep-blue); margin-bottom: 16px;">How It Works</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--brand-blue); margin-right: 12px;">📱</span>
+                                    <span>Web-based app with voting plan checklist</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--brand-blue); margin-right: 12px;">🏆</span>
+                                    <span>Points, badges, and team competitions</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--brand-blue); margin-right: 12px;">🎯</span>
+                                    <span>Strictly nonpartisan, process-focused</span>
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: var(--brand-blue); margin-right: 12px;">📊</span>
+                                    <span>Tracks completion and engagement metrics</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="city-profile">
+                        <div class="city-header">
+                            <div class="tech-logo" style="width: 64px; height: 48px; border-radius: var(--border-radius-sm);">VR</div>
+                            <div class="city-info">
+                                <h3>LA County VR Election Planning</h3>
+                                <p>Virtual reality for optimizing polling place safety & efficiency</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">5M+</span>
+                                <span class="stat-label">Registered Voters</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">$700K</span>
+                                <span class="stat-label">Research Investment</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">2020</span>
+                                <span class="stat-label">COVID Election</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">URI</span>
+                                <span class="stat-label">Academic Partner</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <h4 style="color: var(--deep-blue); margin-bottom: 16px;">Impact & Results</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>Tested COVID-19 safety protocols in virtual space</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>Optimized voter flow and queue management</span>
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>Ensured accessibility for all voter groups</span>
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: var(--green-success); margin-right: 12px;">✓</span>
+                                    <span>Contributed to record turnout with short wait times</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Civic Technology -->
-    <section class="tech-section">
+    <!-- Citizens Assembly Process -->
+    <section class="assembly-process">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Technology Amplifying Democracy</h2>
-                <p class="section-subtitle">Digital tools breaking down barriers to participation</p>
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">The Citizens' Assembly Process</h2>
+                <p class="section-subtitle">From random selection to policy impact</p>
             </div>
-            <div class="tech-showcase">
-                <div class="tech-card fade-in">
-                    <h3 class="solution-title">Motivote: Gamifying Youth Engagement</h3>
-                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">
-                        Transforming voting preparation into a social, goal-oriented activity for college students
-                    </p>
-                    <div class="tech-impact">
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; font-weight: 800; color: var(--accent-aqua);">+10%</div>
-                            <div style="font-size: 0.9rem; color: #666;">Potential turnout increase</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; font-weight: 800; color: var(--deep-blue);">18-29</div>
-                            <div style="font-size: 0.9rem; color: #666;">Target age group</div>
-                        </div>
+            
+            <div class="process-timeline">
+                <div class="timeline-line"></div>
+                <div class="process-steps">
+                    <div class="process-step animate-on-scroll stagger-animation">
+                        <div class="step-tooltip">Random invitations sent to households</div>
+                        <span class="step-icon">📬</span>
+                        <span class="step-label">Random Selection</span>
                     </div>
-                    <div class="chart-container" style="height: 200px;">
-                        <canvas id="motivoteChart"></canvas>
+                    <div class="process-step animate-on-scroll stagger-animation">
+                        <div class="step-tooltip">Expert testimony and balanced information</div>
+                        <span class="step-icon">📚</span>
+                        <span class="step-label">Learning Phase</span>
                     </div>
-                </div>
-                <div class="tech-card fade-in" style="animation-delay: 0.1s;">
-                    <h3 class="solution-title">LA County VR: Future of Election Planning</h3>
-                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">
-                        Virtual reality simulations optimizing polling places for 5 million voters during COVID-19
-                    </p>
-                    <div class="tech-impact">
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; font-weight: 800; color: var(--accent-aqua);">5M</div>
-                            <div style="font-size: 0.9rem; color: #666;">Voters served</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; font-weight: 800; color: var(--deep-blue);">$700K</div>
-                            <div style="font-size: 0.9rem; color: #666;">Research investment</div>
-                        </div>
+                    <div class="process-step animate-on-scroll stagger-animation">
+                        <div class="step-tooltip">Facilitated discussion and debate</div>
+                        <span class="step-icon">💬</span>
+                        <span class="step-label">Deliberation</span>
                     </div>
-                    <div style="margin-top: 30px; padding: 20px; background: rgba(0, 169, 157, 0.1); border-radius: 10px;">
-                        <p style="font-size: 1rem; color: var(--deep-blue);">
-                            ✓ Tested COVID safety protocols<br>
-                            ✓ Optimized voter flow<br>
-                            ✓ Ensured accessibility for all<br>
-                            ✓ Contributed to record turnout
-                        </p>
+                    <div class="process-step animate-on-scroll stagger-animation">
+                        <div class="step-tooltip">Building agreement on recommendations</div>
+                        <span class="step-icon">🤝</span>
+                        <span class="step-label">Consensus Building</span>
+                    </div>
+                    <div class="process-step animate-on-scroll stagger-animation">
+                        <div class="step-tooltip">Recommendations influence policy decisions</div>
+                        <span class="step-icon">🎯</span>
+                        <span class="step-label">Policy Impact</span>
                     </div>
                 </div>
             </div>
@@ -713,72 +1578,104 @@
     </section>
 
     <!-- Impact Dashboard -->
-    <section class="impact-dashboard">
+    <section class="impact-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" style="color: white;">The Mighty Impact</h2>
-                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Measurable outcomes from small-scale initiatives</p>
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">The Mighty Impact</h2>
+                <p class="section-subtitle">Measurable outcomes from community-powered democracy</p>
             </div>
+            
             <div class="impact-grid">
-                <div class="impact-metric fade-in">
-                    <div class="metric-value">16,675</div>
-                    <div class="metric-label">Citizens Voted in PB</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value" data-counter="16675">0</span>
+                    <span class="impact-label">Citizens Voted in PB</span>
+                    <span class="impact-description">Across all studied communities</span>
                 </div>
-                <div class="impact-metric fade-in" style="animation-delay: 0.1s;">
-                    <div class="metric-value">$13.6M</div>
-                    <div class="metric-label">Community-Directed Funds</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value">$13.6M</span>
+                    <span class="impact-label">Community-Directed Funds</span>
+                    <span class="impact-description">Directly allocated by residents</span>
                 </div>
-                <div class="impact-metric fade-in" style="animation-delay: 0.2s;">
-                    <div class="metric-value">86</div>
-                    <div class="metric-label">Projects Funded</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value" data-counter="86">0</span>
+                    <span class="impact-label">Projects Funded</span>
+                    <span class="impact-description">From housing to education to public space</span>
                 </div>
-                <div class="impact-metric fade-in" style="animation-delay: 0.3s;">
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">PB Fellows Report Learning</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value">100%</span>
+                    <span class="impact-label">PB Fellows Report Learning</span>
+                    <span class="impact-description">Increased knowledge about civic processes</span>
                 </div>
-                <div class="impact-metric fade-in" style="animation-delay: 0.4s;">
-                    <div class="metric-value">54</div>
-                    <div class="metric-label">Citizens in Assemblies</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value" data-counter="54">0</span>
+                    <span class="impact-label">Citizens in Assemblies</span>
+                    <span class="impact-description">Gibsons & Eugene combined</span>
                 </div>
-                <div class="impact-metric fade-in" style="animation-delay: 0.5s;">
-                    <div class="metric-value">9</div>
-                    <div class="metric-label">Languages Supported</div>
+                <div class="impact-card animate-on-scroll stagger-animation">
+                    <span class="impact-value" data-counter="9">0</span>
+                    <span class="impact-label">Languages Supported</span>
+                    <span class="impact-description">In Cambridge PB process</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Design Principles -->
-    <section class="solutions-overview">
+    <section class="principles-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Design Principles for Success</h2>
-                <p class="section-subtitle">How to make civic engagement work</p>
+                <p class="section-subtitle">How to make civic engagement work for everyone</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🌍 Design for Inclusion</h4>
-                    <p style="color: #666;">Remove barriers: low voting age, no citizenship requirements, multilingual materials, stipends</p>
+            
+            <div class="principles-grid">
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">🌍</span>
+                    <h3 class="principle-title">Intentional Inclusion</h3>
+                    <p class="principle-description">
+                        Proactively remove barriers through multilingual materials, low voting ages, 
+                        no citizenship requirements, stipends, and targeted outreach to marginalized communities.
+                    </p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🔍 Design for Transparency</h4>
-                    <p style="color: #666;">Make processes open and understandable to build trust and accountability</p>
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">🔍</span>
+                    <h3 class="principle-title">Radical Transparency</h3>
+                    <p class="principle-description">
+                        Make all processes open and understandable. Publish selection methods, 
+                        provide public reports, and maintain interactive project maps.
+                    </p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🎯 Design with Clear Purpose</h4>
-                    <p style="color: #666;">Define goals and extent of citizen influence from the start</p>
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">🎯</span>
+                    <h3 class="principle-title">Clear Mandate & Scope</h3>
+                    <p class="principle-description">
+                        Define purpose, questions, and extent of citizen influence from the start. 
+                        Manage expectations and ensure recommendations are actionable.
+                    </p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">💰 Design with Resources</h4>
-                    <p style="color: #666;">Commit sufficient funding and support for genuine participation</p>
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">💰</span>
+                    <h3 class="principle-title">Adequate Resourcing</h3>
+                    <p class="principle-description">
+                        Commit sufficient financial, human, and technical resources. 
+                        Fund dedicated staff, expert facilitation, and participant support.
+                    </p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🗣️ Design for Fair Discussion</h4>
-                    <p style="color: #666;">Use skilled facilitators to ensure all voices are heard</p>
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">🗣️</span>
+                    <h3 class="principle-title">Skilled Facilitation</h3>
+                    <p class="principle-description">
+                        Use trained, neutral facilitators to guide discussions, ensure respectful dialogue, 
+                        and help groups reach considered judgments.
+                    </p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
-                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">📈 Design for Improvement</h4>
-                    <p style="color: #666;">Evaluate and iterate to enhance effectiveness over time</p>
+                <div class="principle-card animate-on-scroll stagger-animation">
+                    <span class="principle-icon">📈</span>
+                    <h3 class="principle-title">Continuous Learning</h3>
+                    <p class="principle-description">
+                        Evaluate processes and outcomes regularly. Use findings to improve 
+                        future engagement and demonstrate ongoing commitment to quality.
+                    </p>
                 </div>
             </div>
         </div>
@@ -787,112 +1684,116 @@
     <!-- Call to Action -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="section-title">Democracy is a Design Problem</h2>
-            <p style="font-size: 1.5rem; color: var(--medium-blue); margin: 30px auto; max-width: 800px;">
-                When we design civic engagement with intention—prioritizing inclusion, transparency, and genuine power-sharing—we unlock the collective wisdom of our communities.
-            </p>
-            <p style="font-size: 1.3rem; margin: 30px auto; max-width: 600px;">
-                The power to build a better future resides in our communities, waiting to be unlocked.
-            </p>
-            <a href="#" class="cta-button">Join the Movement</a>
+            <div class="cta-content animate-on-scroll">
+                <h2 class="cta-title">Democracy is a Design Problem</h2>
+                <p class="cta-text">
+                    When we design civic engagement with intention—prioritizing inclusion, 
+                    transparency, and genuine power-sharing—we unlock the collective wisdom of our communities.
+                </p>
+                <p style="font-size: 1.25rem; margin-bottom: 48px; opacity: 0.9;">
+                    The power to build a better future resides in our communities, waiting to be unlocked 
+                    by the simple, yet profound, act of engaging citizens as true partners in governance.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button">
+                        <span>Download the Full Report</span>
+                        <span>📄</span>
+                    </a>
+                    <a href="#" class="cta-button secondary">
+                        <span>Start in Your Community</span>
+                        <span>🚀</span>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent-aqua); margin-bottom: 8px;">+7%</div>
+                        <div style="opacity: 0.9;">Voting increase after PB participation</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent-aqua); margin-bottom: 8px;">75%</div>
+                        <div style="opacity: 0.9;">Consensus threshold in assemblies</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent-aqua); margin-bottom: 8px;">8.5%</div>
+                        <div style="opacity: 0.9;">Population turnout in Evanston PB</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
+        // Chart.js Setup
         Chart.register(ChartDataLabels);
-        Chart.defaults.font.family = 'Inter';
+        Chart.defaults.font.family = 'Inter, -apple-system, BlinkMacSystemFont, sans-serif';
+        Chart.defaults.color = '#1e293b';
         
-        // Evanston Projects Chart
-        const evanstonCtx = document.getElementById('evanstonChart').getContext('2d');
-        new Chart(evanstonCtx, {
-            type: 'horizontalBar',
-            data: {
-                labels: ['Affordable Housing', 'Marginalized Students', 'Refugee Housing', 'Urban Farm', 'Youth Center', 'Small Business', 'Mental Health'],
-                datasets: [{
-                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
-                    backgroundColor: '#00A99D',
-                    borderColor: '#005A87',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'right',
-                        color: '#005A87',
-                        font: { weight: 'bold' },
-                        formatter: (value) => '$' + (value/1000) + 'k'
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + (value/1000) + 'k';
-                            }
-                        }
+        // Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toString().includes('.') ? target.toFixed(1) : target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Animate counters
+                    if (entry.target.hasAttribute('data-counter')) {
+                        const target = parseFloat(entry.target.dataset.counter);
+                        animateCounter(entry.target, target);
                     }
                 }
-            }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, [data-counter]').forEach(el => {
+            observer.observe(el);
         });
         
-        // Cambridge Trend Chart
-        const cambridgeCtx = document.getElementById('cambridgeChart').getContext('2d');
-        new Chart(cambridgeCtx, {
-            type: 'line',
-            data: {
-                labels: ['PB9', 'PB10', 'PB11'],
-                datasets: [{
-                    label: 'Voter Participation',
-                    data: [8768, 10522, 10110],
-                    borderColor: '#00A99D',
-                    backgroundColor: 'rgba(0, 169, 157, 0.2)',
-                    borderWidth: 3,
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 6,
-                    pointBackgroundColor: '#00A99D'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    datalabels: {
-                        anchor: 'top',
-                        align: 'top',
-                        color: '#005A87',
-                        font: { weight: 'bold' },
-                        formatter: (value) => value.toLocaleString()
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
         });
         
-        // Motivote Impact Chart
-        const motivoteCtx = document.getElementById('motivoteChart').getContext('2d');
-        new Chart(motivoteCtx, {
+        // Trust Crisis Chart
+        const trustCtx = document.getElementById('trustChart').getContext('2d');
+        new Chart(trustCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Completed Actions', 'Engaged but Incomplete', 'Not Engaged'],
+                labels: ['Trust Government', 'Don\'t Trust Government'],
                 datasets: [{
-                    data: [45, 30, 25],
-                    backgroundColor: ['#00A99D', '#336699', '#F0F4F8'],
+                    data: [18, 82],
+                    backgroundColor: ['#0ea5e9', '#e2e8f0'],
                     borderWidth: 0
                 }]
             },
@@ -903,39 +1804,126 @@
                     legend: {
                         position: 'bottom',
                         labels: {
-                            padding: 15,
-                            font: { size: 11 }
+                            padding: 20,
+                            font: { size: 14, weight: '600' }
                         }
                     },
                     datalabels: {
                         color: 'white',
-                        font: { weight: 'bold', size: 14 },
+                        font: { weight: 'bold', size: 18 },
                         formatter: (value) => value + '%'
                     }
                 }
             }
         });
         
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '50px'
-        };
+        // Evanston Projects Chart
+        const evanstonCtx = document.getElementById('evanstonChart').getContext('2d');
+        new Chart(evanstonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Housing', 'Education', 'Refugee Support', 'Urban Farm', 'Youth Center', 'Small Business', 'Mental Health'],
+                datasets: [{
+                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
+                    backgroundColor: '#0ea5e9',
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'right',
+                        color: '#0f172a',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: (value) => '$' + (value/1000) + 'k'
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value/1000) + 'k';
+                            }
+                        },
+                        grid: { display: false }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Cambridge Trend Chart
+        const cambridgeCtx = document.getElementById('cambridgeChart').getContext('2d');
+        new Chart(cambridgeCtx, {
+            type: 'line',
+            data: {
+                labels: ['PB8 (2022)', 'PB9 (2023)', 'PB10 (2024)', 'PB11 (2025)'],
+                datasets: [{
+                    label: 'Voter Participation',
+                    data: [7500, 8768, 10522, 10110],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#0ea5e9',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 3,
+                    pointRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'top',
+                        align: 'top',
+                        color: '#0f172a',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: (value) => value.toLocaleString()
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
-        }, observerOptions);
+        });
         
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-            observer.observe(el);
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
         });
     </script>
 </body>
