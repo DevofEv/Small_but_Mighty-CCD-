@@ -3,644 +3,940 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small but Mighty: Designing Better Democracy - A CCD Project</title>
-    <meta name="description" content="Explore how Small but Mighty civic engagement initiatives like Participatory Budgeting, Citizens' Assemblies, and Civic Technology are strengthening democracy. A Center for Civic Design project.">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Small but Mighty: Transforming Democracy Through Citizen Engagement</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            color: #374151; 
-            background-color: #F9FAFB; 
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f6 100%);
+            color: #003366;
+            overflow-x: hidden;
         }
+        
+        /* Brand Colors */
+        :root {
+            --deep-blue: #003366;
+            --medium-blue: #336699;
+            --accent-teal: #009688;
+            --brand-blue: #005A87;
+            --accent-aqua: #00A99D;
+            --light-gray: #F0F4F8;
+            --white: #FFFFFF;
+            --yellow-highlight: #FFC107;
+            --soft-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--brand-blue) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 169, 157, 0.1) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+        
+        .logo-section {
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight {
+            color: var(--accent-aqua);
+            text-shadow: 0 0 20px rgba(0, 169, 157, 0.5);
+        }
+        
+        /* Trust Crisis Section */
+        .trust-crisis {
+            background: white;
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .crisis-visual {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .crisis-stat {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .big-number {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--medium-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .crisis-label {
+            font-size: 1.2rem;
+            color: var(--medium-blue);
+        }
+        
+        /* Solution Overview */
+        .solutions-overview {
+            background: var(--light-gray);
+            padding: 80px 0;
+        }
+        
+        .solution-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .solution-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--soft-shadow);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--accent-aqua);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+        }
+        
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .solution-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+        }
+        
+        .solution-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        /* Participatory Budgeting Section */
+        .pb-section {
+            background: white;
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--medium-blue);
+        }
+        
+        .pb-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .city-showcase {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .city-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+        }
+        
+        .city-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-aqua);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Citizens Assembly Section */
+        .ca-section {
+            background: var(--light-gray);
+            padding: 80px 0;
+        }
+        
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            position: relative;
+        }
+        
+        .process-step {
+            background: white;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--soft-shadow);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover {
+            transform: scale(1.1);
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .step-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .process-connector {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
+            z-index: 1;
+        }
+        
+        /* Civic Tech Section */
+        .tech-section {
+            background: white;
+            padding: 80px 0;
+        }
+        
+        .tech-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .tech-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-impact {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        
+        /* Impact Dashboard */
+        .impact-dashboard {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--brand-blue) 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .impact-metric {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .impact-metric:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-aqua);
+            text-shadow: 0 0 20px rgba(0, 169, 157, 0.5);
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        
+        /* Call to Action */
+        .cta-section {
+            background: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-aqua) 0%, var(--accent-teal) 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 169, 157, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 169, 157, 0.4);
+        }
+        
+        /* Charts */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px; 
-            max-height: 420px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 380px; 
-                max-height: 480px;
-            }
-        }
-        .ccd-header-bg { background-color: #003366; }
-        .ccd-section-title { color: #003366; }
-        .ccd-accent-text { color: #009688; }
-        
-        .sbm-brand-text { color: #005A87; }
-        .sbm-accent-text { color: #00A99D; }
-        .sbm-highlight-yellow { color: #FFC107; }
-
-        .ccd-stat-card {
-            background-color: #003366; 
-            color: #FFFFFF;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem; 
-        }
-        .ccd-stat-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.15), 0 5px 8px -3px rgba(0, 0, 0, 0.1);
-        }
-        .ccd-nav-link {
-            transition: all 0.3s ease;
-            color: #E0E8F0; 
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-        .ccd-nav-link:hover, .ccd-nav-link.active {
-            color: #FFFFFF; 
-            background-color: #005A87; 
-            transform: scale(1.05);
-        }
-        .ccd-flowchart-step {
-            border: 3px solid #336699; 
-            background-color: #FFFFFF;
-            color: #003366; 
-            transition: all 0.3s ease;
-            border-radius: 0.5rem; 
-        }
-        .ccd-flowchart-step:hover {
-            background-color: #E0E8F0; 
-            border-color: #005A87; 
-            transform: translateY(-3px);
-        }
-        .ccd-flowchart-arrow { color: #336699; font-weight: 700; }
-        .ccd-principle-card {
-            background-color: #FFFFFF;
-            border-left: 8px solid #009688; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 0.75rem; 
-        }
-         .ccd-principle-card:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 12px 25px rgba(0, 51, 102, 0.18);
-        }
-        .ccd-unicode-icon { font-size: 2.25rem; margin-right: 0.875rem; color: #009688; }
-        .ccd-body-text { color: #374151; line-height: 1.7; }
-        .ccd-subtle-bg { background-color: #F0F4F8; }
-        .ccd-card-bg { background-color: #FFFFFF; }
-
-        .chartjs-tooltip {
-            background: rgba(255, 255, 255, 0.98) !important;
-            border-radius: 0.5rem !important; 
-            color: #003366 !important; 
-            border: 1px solid #005A87 !important; 
-            padding: 10px 12px !important; 
-            font-family: 'Inter', sans-serif !important;
-            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 3px 7px -3px rgba(0, 0, 0, 0.05) !important;
-        }
-        .chartjs-tooltip-key {
-            display: inline-block !important;
-            width: 12px !important;
-            height: 12px !important;
-            margin-right: 8px !important;
-            border-radius: 3px !important;
+            height: 300px;
+            margin: 30px 0;
         }
         
-        .logo-placeholder-sbm {
-            display: flex; align-items: center; justify-content: center; font-weight: 700; 
-            color: #FFFFFF; background-color: #005A87; border: 2px solid #00A99D; 
-            border-radius: 8px; text-align: center; height: 50px; width: auto;
-            padding: 0 24px; font-size: 1.25rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
         }
-        .logo-placeholder-ccd {
-            display: flex; align-items: center; justify-content: center; font-weight: 600;
-            color: #003366; background-color: #E0E8F0; border: 1px solid #336699; 
-            border-radius: 6px; text-align: center; height: 30px; width: auto;
-            margin-top: 6px; padding: 0 16px; font-size: 0.875rem; 
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .section-divider {
-            height: 5px; background-image: linear-gradient(to right, #00A99D, #005A87, #003366); 
-            margin: 3.5rem auto; width: 60%; border-radius: 3px;
-            box-shadow: 0 2px 4px rgba(0,90,135,0.2);
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .big-number { font-size: 4rem; }
+            .pb-comparison { grid-template-columns: 1fr; }
+            .process-flow { flex-direction: column; gap: 30px; }
+            .process-connector { display: none; }
         }
-        .stat-highlight-lg { font-size: 5rem; font-weight: 800; line-height: 1; }
-        .stat-highlight-md { font-size: 3.5rem; font-weight: 700; line-height: 1; }
-        .promise-perils-container > div { padding: 1.5rem; }
-        .promise-perils-container h4 { margin-bottom: 1rem; }
-        .blockquote {
-            border-left: 4px solid #00A99D; padding-left: 1rem; margin: 1rem 0;
-            font-style: italic; color: #555;
-        }
-        .audio-player-container {
-            background-color: #E0E8F0; /* CCD Light Blue */
-            border: 1px solid #336699; /* CCD Medium Blue */
-            border-radius: 0.5rem; /* rounded-lg */
-            padding: 1.5rem; /* p-6 */
-            margin-top: 2rem; /* mt-8 */
-            margin-bottom: 2rem; /* mb-8 */
-        }
-        .audio-player-container h4 { color: #005A87; /* SBM Brand Text */ }
-        .audio-player-container p { color: #374151; /* CCD Body Text */ }
-        .audio-player-container audio {
-            width: 100%;
-            margin-top: 1rem; /* mt-4 */
-            border-radius: 0.375rem; /* rounded-md */
-            outline: none; /* Remove default focus outline if custom is applied */
-        }
-        .audio-player-container audio::-webkit-media-controls-panel {
-            background-color: #FFFFFF;
-            border-radius: 0.375rem;
-        }
-        .transcript-link {
-            display: inline-block;
-            margin-top: 0.75rem; /* mt-3 */
-            color: #005A87; /* SBM Brand Text */
-            text-decoration: underline;
-            font-weight: 500;
-        }
-        .transcript-link:hover { color: #003366; /* CCD Deep Blue */ }
-
-        .read-more-content {
-            max-height: 7.5em; /* Approx 5 lines, adjust as needed */
-            overflow: hidden;
-            position: relative;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .read-more-content.expanded {
-            max-height: 1000px; /* Large enough for all content */
-        }
-        .read-more-btn {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 0.25rem 0.5rem;
-            background-color: #009688;
-            color: white;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        .read-more-btn:hover { background-color: #00796B; }
-
     </style>
 </head>
-<body class="bg-gray-50 ccd-body-text">
-
-    <header class="ccd-header-bg text-white py-4 px-4 shadow-xl sticky top-0 z-50">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="flex flex-col items-center md:items-start mb-3 md:mb-0">
-                <div class="logo-placeholder-sbm">Small but Mighty Cities</div>
-                <div class="logo-placeholder-ccd">A Center for Civic Design Project</div>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 50px; backdrop-filter: blur(10px);">
+                    <span style="font-size: 1.5rem; font-weight: 700;">Small but Mighty Cities</span>
+                    <span style="font-size: 1rem; opacity: 0.8;">| Center for Civic Design</span>
+                </div>
             </div>
-            <nav id="mainNav" class="mt-2 md:mt-0">
-                <ul class="flex flex-wrap justify-center space-x-1 md:space-x-2 text-sm">
-                    <li><a href="#intro" class="ccd-nav-link">Intro</a></li>
-                    <li><a href="#pb" class="ccd-nav-link">Participatory Budgeting</a></li>
-                    <li><a href="#ca" class="ccd-nav-link">Citizens' Assemblies</a></li>
-                    <li><a href="#civictech" class="ccd-nav-link">Civic Technology</a></li>
-                    <li><a href="#principles" class="ccd-nav-link">Design Principles</a></li>
-                </ul>
-            </nav>
+            <h1 class="main-title fade-in">
+                Transforming Democracy<br>
+                <span class="highlight">One Community at a Time</span>
+            </h1>
+            <p class="subtitle fade-in">How local initiatives are rebuilding trust and engagement in government</p>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8">
-
-        <section id="intro" class="text-center py-16 md:py-24">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold sbm-brand-text mb-8">The Design Challenge: <span class="sbm-accent-text block md:inline">Making Democracy Work for Everyone</span></h2>
-            <div class="read-more-container max-w-4xl mx-auto">
-                <div class="read-more-content ccd-body-text text-lg md:text-xl mb-6">
-                    <p class="mb-4">This "Small but Mighty" exploration, a project by the Center for Civic Design, delves into how even local, small-scale initiatives can have an outsized impact on democratic participation. We examine real-world case studies to uncover what works, what challenges arise, and how these innovative forms of engagement contribute to more responsive and equitable policymaking.</p>
-                    <p>Our goal is to connect research findings with practical lessons, showing policymakers and civic professionals how thoughtfully designed public participation can strengthen democracy from the ground up.</p>
+    <!-- Trust Crisis -->
+    <section class="trust-crisis">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">The Trust Crisis</h2>
+            <div class="crisis-visual">
+                <div class="crisis-stat fade-in">
+                    <div class="big-number">18%</div>
+                    <div class="crisis-label">Americans who trust<br>the federal government</div>
                 </div>
-                <button class="read-more-btn">Read More</button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto mt-12">
-                <div class="ccd-stat-card p-8 md:p-10 flex flex-col items-center justify-center">
-                    <span class="stat-highlight-lg sbm-highlight-yellow">18%</span>
-                    <p class="mt-4 text-xl md:text-2xl text-center font-semibold">Only 18% of Americans consistently trust the federal government to do what's right.</p>
-                    <p class="text-sm mt-3 opacity-80">(Source: Pew Research Center / Report [2])</p>
-                </div>
-                <div class="ccd-stat-card p-8 md:p-10 flex flex-col items-center justify-center">
-                    <span class="stat-highlight-lg ccd-accent-text">+7%</span>
-                    <p class="mt-4 text-xl md:text-2xl text-center font-semibold">Participatory Budgeting participants are 7% more likely to vote in later elections.</p>
-                     <p class="text-sm mt-3 opacity-80">(Source: Participatory Budgeting Project / Report [1,34])</p>
+                <div style="font-size: 4rem; color: var(--medium-blue);">→</div>
+                <div class="crisis-stat fade-in">
+                    <div class="big-number" style="color: var(--accent-aqua);">+7%</div>
+                    <div class="crisis-label">Increased voting after<br>participatory budgeting</div>
                 </div>
             </div>
-            <p class="mt-16 text-lg md:text-xl text-gray-700">Low trust is a design problem. "Small but Mighty" engagement methods are designed solutions that rebuild trust and boost participation.</p>
-        </section>
+        </div>
+    </section>
 
-        <div class="section-divider"></div>
-
-        <section id="pb" class="py-12 md:py-16 ccd-subtle-bg rounded-xl shadow-inner">
-            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-5">Participatory Budgeting (PB)</h2>
-            <p class="text-xl md:text-2xl sbm-accent-text text-center mb-10 font-medium">Design Problem: Public budgets don't always reflect community needs.</p>
-            <div class="read-more-container max-w-3xl mx-auto">
-                <div class="read-more-content ccd-body-text text-lg mb-16 text-center">
-                    <p class="mb-4"><strong>Design Solution:</strong> Participatory Budgeting (PB) is designed to give residents direct power in deciding how public money is spent. It's a community-led process from idea generation, through volunteer-led proposal development, to a community-wide vote.</p>
-                    <p>PB empowers diverse voices, often leading to more equitable distribution of resources and fostering a stronger sense of community ownership and trust in local government. It's a tangible way for citizens to see their input directly shape their neighborhoods.</p>
-                </div>
-                <button class="read-more-btn mx-auto block">Read More</button>
+    <!-- Solutions Overview -->
+    <section class="solutions-overview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Three Powerful Solutions</h2>
+                <p class="section-subtitle">Small-scale initiatives with mighty impact</p>
             </div>
-
-            <div class="audio-player-container">
-                <h4 class="text-2xl font-semibold mb-3">Listen: The Power of Participatory Budgeting</h4>
-                <p class="text-md mb-4">Hear directly from community members and experts about how PB is transforming cities like Evanston and Cambridge.</p>
-                <audio controls>
-                    <source src="placeholder_pb_podcast.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element. 
-                </audio>
-                <a href="#pb-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mt-12">
-                {/* ... PB Case Studies for Evanston and Cambridge ... (Content from previous version) */}
-                <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Evanston, IL: <span class="ccd-accent-text">Designing for Equitable Recovery</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">Evanston used <strong class="sbm-accent-text text-2xl font-semibold">$3 million</strong> in ARPA funds, with expertise from <strong class="sbm-brand-text">Northwestern University</strong> aiding process design. Design challenge: ensure COVID-19 recovery funds reached underserved communities.</p>
-                    <blockquote class="blockquote text-md">
-                        "The historic level of turnout... is another demonstration of Evanston's passionate and engaged citizenry... Our residents' ideas and involvement are truly our greatest asset." - Mayor Daniel Biss
-                    </blockquote>
-                    <div class="chart-container mb-6 h-[300px] md:h-[340px]">
-                        <canvas id="evanstonTurnoutChart"></canvas>
-                    </div>
-                    <p class="text-md text-gray-700 mb-6 text-center">Design Choice: Inclusive voting (age 14+, no citizenship needed) and widespread outreach tapped into a <strong class="sbm-brand-text">"pent-up desire to shape the city's recovery,"</strong> leading to <strong class="sbm-brand-text font-semibold text-lg">8.5% voter turnout</strong> (6,565 residents).</p>
-                    
-                    <h4 class="text-xl font-semibold mt-8 mb-4 ccd-section-title">Key Project Allocations:</h4>
-                    <div class="chart-container h-[340px] md:h-[400px]">
-                        <canvas id="evanstonProjectsChart"></canvas>
-                    </div>
-                    <p class="text-md text-gray-700 mt-4 ccd-body-text">Chart shows community-voted allocations. Projects like Affordable Housing ($810k) show this community-centered design's impact.</p>
-                </div>
-
-                <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Cambridge, MA: <span class="ccd-accent-text">Designing for Sustained Engagement</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">Since 2014, Cambridge designed PB into its annual budget (~$1-2M/year), fostering a robust <strong class="sbm-brand-text">"PB culture."</strong> Sustained design results:</p>
-                    <div class="flex flex-col sm:flex-row justify-around text-center my-8 space-y-6 sm:space-y-0">
-                        <div>
-                            <span class="stat-highlight-md sbm-accent-text">79</span>
-                            <p class="ccd-body-text mt-2 text-lg">Projects Funded</p>
-                        </div>
-                        <div>
-                            <span class="stat-highlight-md sbm-accent-text">$10.6M+</span>
-                            <p class="ccd-body-text mt-2 text-lg">Invested via Community Design</p>
-                        </div>
-                    </div>
-                    <p class="mb-4 ccd-body-text text-lg">Design Choice: Multilingual materials (9 languages), voting from age 12 ensure broad inclusion. A notable success was a <strong class="sbm-brand-text">middle schoolers' proposal for free menstrual products</strong>, empowering youth to address overlooked needs.</p>
-                    <h4 class="text-xl font-semibold mt-8 mb-4 ccd-section-title">Growing Voter Turnout:</h4>
-                     <div class="chart-container h-[300px] md:h-[340px]">
-                        <canvas id="cambridgeTurnoutChart"></canvas>
-                    </div>
-                    <p class="text-md text-gray-700 mt-4 text-center ccd-body-text">Line chart shows rising turnout, with PB10 & PB11 each over 10,000 voters, proving inclusive design success.</p>
-                </div>
-            </div>
-            <div class="mt-16 ccd-card-bg p-8 md:p-10 rounded-xl shadow-xl text-center">
-                <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">The <span class="ccd-accent-text">Positive Impact</span> of PB by Design</h3>
-                <p class="text-lg md:text-xl ccd-body-text mb-4">PB is designed to build civic skills and trust. It serves as practical civic education, with participants becoming more informed community members and sometimes <strong class="sbm-brand-text">civic ambassadors or future leaders.</strong></p>
-                <div class="my-8">
-                    <p class="text-gray-700 text-xl mb-2">PBP Fellows reporting increased knowledge of city functions & engagement:</p>
-                    <span class="stat-highlight-lg sbm-accent-text">100%</span>
-                </div>
-                <p class="text-lg md:text-xl ccd-body-text"><span class="ccd-unicode-icon">🗳️</span> Participants are <strong class="sbm-brand-text text-2xl font-semibold">7% more likely</strong> to vote in other elections. (Source: PBP)</p>
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <section id="ca" class="py-12 md:py-16">
-            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-5">Citizens' Assemblies (CAs)</h2>
-            <p class="text-xl md:text-2xl sbm-accent-text text-center mb-10 font-medium">Design Problem: Complex policies need diverse, informed citizen input.</p>
-            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-16 text-center">
-                <strong>Design Solution:</strong> Citizens' Assemblies (guided by frameworks like OECD principles) bring together a "mini-public"—a randomly selected, demographically representative group—to learn, discuss, and make recommendations on tough policy issues.
-            </p>
-
-            <div class="audio-player-container">
-                <h4 class="text-2xl font-semibold mb-3">Listen: Deliberative Democracy in Action</h4>
-                <p class="text-md mb-4">Discover how Citizens' Assemblies in Gibsons and Eugene empowered everyday people to tackle complex local challenges.</p>
-                <audio controls>
-                    <source src="placeholder_ca_podcast.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element. 
-                </audio>
-                <a href="#ca-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
-            </div>
-            
-            {/* ... CA Process Flow and Case Studies for Gibsons and Eugene ... (Content from previous version) */}
-            <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl mb-16 mt-12">
-                <h3 class="text-2xl md:text-3xl font-semibold mb-10 text-center ccd-section-title">The Citizens' Assembly Design Process</h3>
-                <div class="flex flex-col md:flex-row justify-around items-stretch space-y-8 md:space-y-0 md:space-x-4 text-center ccd-body-text">
-                    <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">📬</span><strong class="text-lg">1. Invitation</strong><br>(Civic Lottery)</div>
-                    <div class="ccd-flowchart-arrow text-4xl hidden md:flex items-center transform md:rotate-0">&rarr;</div> <div class="ccd-flowchart-arrow text-4xl md:hidden self-center transform rotate-90">&rarr;</div>
-                    <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">👥</span><strong class="text-lg">2. Selection</strong><br>(Representative Group)</div>
-                    <div class="ccd-flowchart-arrow text-4xl hidden md:flex items-center transform md:rotate-0">&rarr;</div> <div class="ccd-flowchart-arrow text-4xl md:hidden self-center transform rotate-90">&rarr;</div>
-                    <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">📚</span><strong class="text-lg">3. Learning</strong><br>(Expert Information)</div>
-                    <div class="ccd-flowchart-arrow text-4xl hidden md:flex items-center transform md:rotate-0">&rarr;</div> <div class="ccd-flowchart-arrow text-4xl md:hidden self-center transform rotate-90">&rarr;</div>
-                    <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">💬</span><strong class="text-lg">4. Deliberation</strong><br>(Guided Discussion)</div>
-                    <div class="ccd-flowchart-arrow text-4xl hidden md:flex items-center transform md:rotate-0">&rarr;</div> <div class="ccd-flowchart-arrow text-4xl md:hidden self-center transform rotate-90">&rarr;</div>
-                    <div class="ccd-flowchart-step p-4 md:p-5 flex-1 flex flex-col justify-center items-center"><span class="ccd-unicode-icon text-4xl mb-3">📝</span><strong class="text-lg">5. Recommendations</strong><br>(Informing Policy)</div>
-                </div>
-                <p class="text-md text-gray-700 mt-8 text-center ccd-body-text">This structured design, often supported by organizations like the <strong class="sbm-brand-text">Sortition Foundation</strong> or <strong class="sbm-brand-text">MASS LBP</strong>, ensures informed and representative citizen input.</p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                 <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Gibsons, BC: <span class="ccd-accent-text">Designing for Consensus</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">This small town (pop. ~5,000) designed a CA with <strong class="sbm-brand-text">SFU's RPHI</strong> for its OCP (growth & housing). One councillor noted the CA provided crucial confirmation of public support for ideas, lending them <strong class="sbm-brand-text">greater legitimacy</strong> than traditional hearings.</p>
-                    <ul class="list-disc list-inside space-y-3 mb-6 ccd-body-text text-lg">
-                        <li><span class="font-semibold">Design Choice:</span> 25 members by civic lottery.</li>
-                        <li>Met <span class="font-semibold">30-40 hours</span>; stipends ensured participation.</li>
-                        <li>Produced <span class="font-semibold">6 key recommendations</span> (75% agreement), including a <strong class="sbm-brand-text">Community Values Framework.</strong></li>
-                        <li>Council <strong class="sbm-accent-text font-semibold">prioritized all recommendations</strong>.</li>
-                    </ul>
-                    <p class="ccd-body-text text-lg">Design transformed divisive planning into constructive solutions, with positive local media like "Quite proud of this little town."</p>
-                </div>
-                <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Eugene, OR: <span class="ccd-accent-text">Navigating Housing Laws</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">Eugene (pop. ~177,000) designed a 29-member Panel with <strong class="sbm-brand-text">Healthy Democracy</strong> for "Middle Housing" law. The panel helped <strong class="sbm-brand-text">proactively address community concerns,</strong> contributing to less acrimonious policy adoption.</p>
-                     <ul class="list-disc list-inside space-y-3 mb-6 ccd-body-text text-lg">
-                        <li><span class="font-semibold">Design Choice:</span> Civic lottery, ensuring diversity (age, race, renter/owner).</li>
-                        <li>Met online <span class="font-semibold">35 hours</span>; stipends provided.</li>
-                        <li>Produced <span class="font-semibold">4 reports</span> with recommendations.</li>
-                        <li>Panel's input <strong class="sbm-accent-text font-semibold">influenced final city policies</strong>, balancing diverse views.</li>
-                    </ul>
-                    <p class="ccd-body-text text-lg">CA design legitimized tough choices by including diverse voices. The city reported it "engaged a wider range of community members than any previous planning effort."</p>
-                </div>
-            </div>
-             <div class="mt-16 ccd-card-bg p-8 md:p-10 rounded-xl shadow-xl">
-                <h3 class="text-2xl md:text-3xl font-semibold mb-6 text-center ccd-section-title">Impact by Design: Citizens' Assemblies</h3>
-                <p class="text-lg md:text-xl ccd-body-text text-center mb-4">CAs are designed to build civic skills, trust, and break policy deadlocks. They enhance civic capacity among participants.</p>
-                <p class="text-center ccd-body-text text-xl md:text-2xl"><span class="ccd-unicode-icon">💡</span> Participants report significant learning and feel <strong class="sbm-brand-text font-semibold">more able to make a difference.</strong></p>
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <section id="civictech" class="py-12 md:py-16 ccd-subtle-bg rounded-xl shadow-inner">
-            <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-5">Civic Technology</h2>
-            <p class="text-xl md:text-2xl sbm-accent-text text-center mb-10 font-medium">Design Problem: How can technology make participation more accessible and effective?</p>
-            <p class="text-lg ccd-body-text max-w-3xl mx-auto mb-16 text-center">
-                <strong>Design Solution:</strong> Thoughtfully designed digital tools can inform citizens and lower barriers. Good design must prioritize equity, accessibility (e.g., WCAG compliance), and data privacy.
-            </p>
-
-            <div class="audio-player-container">
-                <h4 class="text-2xl font-semibold mb-3">Listen: Tech Innovations in Civic Life</h4>
-                <p class="text-md mb-4">Explore how platforms like Motivote and VR simulations in LA County are changing the landscape of citizen engagement and election administration.</p>
-                <audio controls>
-                    <source src="placeholder_civictech_podcast.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element. 
-                </audio>
-                <a href="#civictech-transcript-placeholder" class="transcript-link">Read Episode Transcript</a>
-            </div>
-
-            {/* ... Civic Tech Case Studies for Motivote and LA County VR ... (Content from previous version) */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mt-12"> 
-                <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">Motivote: <span class="ccd-accent-text">Designing for Youth Voter Engagement</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">Web app for college students (18-29) using gamification to simplify voter prep, reducing "friction" and <strong class="sbm-brand-text">lowering the "activation energy"</strong> for participation.</p>
-                    <blockquote class="blockquote text-md">
-                        A Minnesota college official noted Motivote led to their "best semester for voter engagement."
-                    </blockquote>
-                    <div class="flex items-center justify-around mt-auto"> 
-                        <div class="chart-container mb-4 h-[240px] md:h-[260px] w-3/5"> 
-                            <canvas id="motivoteImpactChart"></canvas>
-                        </div>
-                        <div class="text-center w-2/5 pl-4">
-                            <span class="stat-highlight-md sbm-accent-text block">+10%</span>
-                            <p class="ccd-body-text text-md font-semibold mt-1">Potential Turnout Increase</p>
-                        </div>
-                    </div>
-                    <p class="text-md text-gray-700 mt-4 text-center ccd-body-text">Pie chart shows youth focus. Design aims to make voting prep engaging for them.</p>
-                </div>
-                <div class="ccd-card-bg p-6 md:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
-                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 ccd-section-title">LA County VR: <span class="ccd-accent-text">Designing for Election Integrity & Safety</span></h3>
-                    <p class="mb-4 ccd-body-text text-lg">LA County (over <strong class="sbm-accent-text text-xl font-semibold">5 million</strong> voters) used VR with <strong class="sbm-brand-text">URI VOTES</strong> to design optimal, safe polling places for 2020 (COVID-19), serving as a crucial <strong class="sbm-brand-text">"dress rehearsal"</strong> for complex logistics.</p>
-                    <div class="text-center my-8 space-x-6 flex-grow flex items-center justify-center"> 
-                        <span class="ccd-unicode-icon text-7xl">🗳️</span>
-                        <span class="ccd-unicode-icon text-7xl">↔️</span>
-                        <span class="ccd-unicode-icon text-7xl">😷</span>
-                    </div>
-                    <p class="text-center ccd-body-text mb-4 text-lg">VR helped design for social distancing, sanitization, voter flow, identifying problems proactively. This contributed to <strong class="sbm-brand-text">operational excellence and risk management.</strong></p>
-                    <p class="ccd-body-text text-lg">Innovative design protected in-person voting, contributing to <strong class="sbm-brand-text font-semibold">smooth, safe elections & record turnout.</strong></p>
-                </div>
-            </div>
-            <div class="mt-16 ccd-card-bg p-8 md:p-10 rounded-xl shadow-xl promise-perils-container">
-                <h3 class="text-2xl md:text-3xl font-semibold text-center mb-8 ccd-section-title">Designing Civic Tech: Promise & Perils</h3>
-                <div class="flex flex-col md:flex-row justify-between items-start ccd-body-text text-lg">
-                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                        <h4 class="font-semibold text-2xl ccd-accent-text flex items-center"><span class="ccd-unicode-icon text-4xl">🌟</span>Promise by Design:</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-6 mt-4">
-                            <li>Makes participation easier</li>
-                            <li>Engages new/younger people</li>
-                            <li>Improves efficiency and safety</li>
-                            <li>Provides easy access to information</li>
-                        </ul>
-                    </div>
-                    <div class="md:w-1/2 md:pl-8 border-t-2 md:border-t-0 md:border-l-2 border-gray-200 pt-8 md:pt-0">
-                        <h4 class="font-semibold text-2xl sbm-accent-text flex items-center"><span class="ccd-unicode-icon text-4xl">⚠️</span>Design Challenges:</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-6 mt-4">
-                            <li>Digital divide (access & skills)</li>
-                            <li>Data privacy concerns</li>
-                            <li>Misinformation risks</li>
-                            <li>Cost and making it work for everyone</li>
-                        </ul>
+            <div class="solution-cards">
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">💰</div>
+                    <h3 class="solution-title">Participatory Budgeting</h3>
+                    <p class="solution-description">Communities directly decide how to spend public money, from idea generation to voting on projects.</p>
+                    <div style="margin-top: 30px;">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">$13.6M+</div>
+                        <div style="font-size: 0.9rem; color: #666;">Allocated by communities</div>
                     </div>
                 </div>
-                <p class="mt-10 text-center ccd-body-text text-lg md:text-xl">Good civic tech design is user-centered, accessible (e.g., adhering to <strong class="sbm-brand-text">WCAG guidelines</strong>), protects privacy, and uses partnerships to ensure it helps <strong class="sbm-brand-text font-semibold">everyone, not just some.</strong></p>
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <section id="principles" class="py-12 md:py-16">
-             <h2 class="text-3xl md:text-4xl font-bold ccd-section-title text-center mb-10">Design Principles for <span class="sbm-accent-text">Better Civic Outcomes</span></h2>
-            <p class="text-lg md:text-xl ccd-body-text max-w-3xl mx-auto mb-16 text-center">
-                Effective civic engagement isn't an accident; it's the result of careful design. These principles, drawn from the "Small but Mighty" series, guide initiatives that truly make an impact by embedding equity and effectiveness into their core.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                {[
-                    {icon: '🌍', title: 'Design for Inclusion', text: 'Actively design to include and empower diverse voices, especially from marginalized groups, by removing barriers and ensuring equitable access (e.g., easy voting, stipends, language support).'},
-                    {icon: '🔍', title: 'Design for Transparency', text: 'Ensure all parts of the process—rules, information, decision-making—are open, understandable, and accessible to build trust and allow public scrutiny.'},
-                    {icon: '🎯', title: 'Design with Clear Purpose', text: 'Clearly define the goals, questions to be addressed, and the specific extent of citizen influence from the outset to manage expectations and focus efforts.'},
-                    {icon: '💰', title: 'Design with Resources', text: 'Commit sufficient financial, human, and technical resources to support a high-quality, robust process, preventing "façade" participation.'},
-                    {icon: '🗣️', title: 'Design for Fair Discussion', text: 'Use skilled, neutral facilitators to guide respectful dialogue, manage group dynamics, and ensure all voices are heard and considered thoughtfully.'},
-                    {icon: '🤝', title: 'Design for Trust', text: 'Create processes that are demonstrably fair, transparent, responsive, and respect citizen contributions, fostering confidence in institutions.'},
-                    {icon: '🔄', title: 'Design for Impact', text: 'Establish clear pathways for how citizen input will be considered and used by decision-makers, and transparently report back on outcomes and actions taken.'},
-                    {icon: '🧠', title: 'Design for Learning', text: 'Provide participants with balanced information, adequate time, and structured opportunities to learn, deliberate, and weigh complex options.'},
-                    {icon: '📈', title: 'Design for Improvement', text: 'Regularly evaluate processes and outcomes, using data and feedback to make iterative improvements and enhance effectiveness over time.'}
-                ].map(principle => `
-                <div class="ccd-principle-card p-6 md:p-8">
-                    <div class="flex items-center mb-5"> <span class="ccd-unicode-icon text-5xl">${principle.icon}</span> <h3 class="text-xl md:text-2xl font-semibold ccd-section-title">${principle.title}</h3> </div>
-                    <p class="ccd-body-text text-md">${principle.text}</p>
-                </div>
-                `).join('')}
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <section id="conclusion" class="text-center py-16 md:py-24 ccd-subtle-bg rounded-xl shadow-inner">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold ccd-section-title mb-8">A Call to Action: <span class="sbm-accent-text block md:inline">Designing a More Participatory Future</span></h2>
-            <p class="text-lg md:text-xl ccd-body-text max-w-4xl mx-auto mb-12">
-                The "Small but Mighty" initiatives show that practical, well-designed tools can revitalize civic life and build stronger, fairer democracies. These are not just idealistic experiments; they are <strong class="sbm-brand-text">practical tools that can be adapted and scaled.</strong> The power to design a better future is in our communities.
-            </p>
-            <p class="text-xl md:text-2xl ccd-body-text max-w-4xl mx-auto font-semibold mb-12">
-                Let's invest in designing participatory systems, embrace thoughtful discussion, prioritize inclusion in our designs, and create a culture of learning to unlock this potential. When institutions hand over a bit of power, people prove themselves capable and eager to use it responsibly.
-            </p>
-            <button class="bg-[#009688] text-white font-bold py-4 px-12 rounded-xl shadow-xl hover:bg-[#00796B] transition duration-300 text-xl md:text-2xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#00A99D] focus:ring-opacity-50" onclick="showCcdAlert('Thank you for your interest! Explore opportunities to help design better civic engagement in your community. Visit civicdesign.org to learn more.', 'Get Inspired to Design!')">
-                Get Inspired to Design!
-            </button>
-        </section>
-
-        <div id="ccdAlertModal" class="fixed inset-0 bg-black bg-opacity-60 overflow-y-auto h-full w-full flex items-center justify-center z-[100]" style="display: none;">
-            <div class="p-8 border-0 w-11/12 md:max-w-lg lg:max-w-xl shadow-2xl rounded-xl bg-white transform transition-all duration-300 ease-out scale-95 opacity-0" id="alertModalContent">
-                <div class="text-center">
-                    <h3 class="text-2xl md:text-3xl leading-6 font-bold ccd-section-title mb-6" id="ccdAlertTitle">Alert</h3>
-                    <div class="mt-2 px-4 py-3">
-                        <p class="text-lg md:text-xl ccd-body-text" id="ccdAlertMessage">Message goes here.</p>
+                <div class="solution-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="solution-icon">👥</div>
+                    <h3 class="solution-title">Citizens' Assemblies</h3>
+                    <p class="solution-description">Randomly selected residents learn about issues and make policy recommendations through deliberation.</p>
+                    <div style="margin-top: 30px;">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">54</div>
+                        <div style="font-size: 0.9rem; color: #666;">Citizens shaping policy</div>
                     </div>
-                    <div class="items-center px-4 py-3 mt-6">
-                        <button id="okBtn" class="px-8 py-3 bg-[#009688] text-white text-lg md:text-xl font-semibold rounded-lg w-full shadow-md hover:bg-[#00796B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009688] transition-colors duration-300">
-                            OK
-                        </button>
+                </div>
+                <div class="solution-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="solution-icon">📱</div>
+                    <h3 class="solution-title">Civic Technology</h3>
+                    <p class="solution-description">Digital tools that make participation easier and more accessible for all demographics.</p>
+                    <div style="margin-top: 30px;">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-aqua);">5M+</div>
+                        <div style="font-size: 0.9rem; color: #666;">Voters served by tech</div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="text-center p-8 ccd-header-bg text-gray-300">
-        <div class="logo-placeholder-sbm mx-auto mb-4 text-lg">Small but Mighty Cities</div>
-        <p class="mb-2 text-md">A Center for Civic Design Project.</p>
-        <p class="text-sm opacity-80">Visualizations created with Chart.js and HTML/Tailwind CSS. No SVG or Mermaid JS used.</p>
-    </footer>
+    <!-- Participatory Budgeting Deep Dive -->
+    <section class="pb-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Participatory Budgeting in Action</h2>
+                <p class="section-subtitle">Two cities, two approaches, one powerful outcome</p>
+            </div>
+            <div class="pb-comparison">
+                <div class="city-showcase fade-in">
+                    <h3 class="city-name">Evanston, Illinois</h3>
+                    <div class="city-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">$3M</div>
+                            <div class="stat-label">ARPA Funds</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">8.5%</div>
+                            <div class="stat-label">Voter Turnout</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">1,300+</div>
+                            <div class="stat-label">Ideas Submitted</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Projects Funded</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="evanstonChart"></canvas>
+                    </div>
+                    <p style="margin-top: 20px; font-style: italic; color: #666;">
+                        "Our residents' ideas and involvement are truly our greatest asset" - Mayor Daniel Biss
+                    </p>
+                </div>
+                <div class="city-showcase fade-in" style="animation-delay: 0.1s;">
+                    <h3 class="city-name">Cambridge, Massachusetts</h3>
+                    <div class="city-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">11</div>
+                            <div class="stat-label">Years Running</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">$10.6M</div>
+                            <div class="stat-label">Total Invested</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">79</div>
+                            <div class="stat-label">Projects Funded</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">10,522</div>
+                            <div class="stat-label">Peak Voters</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cambridgeChart"></canvas>
+                    </div>
+                    <p style="margin-top: 20px; font-style: italic; color: #666;">
+                        Middle schoolers successfully proposed free menstrual products in schools
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citizens Assemblies -->
+    <section class="ca-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Citizens' Assemblies: Deliberative Democracy</h2>
+                <p class="section-subtitle">Ordinary citizens tackling complex policy challenges</p>
+            </div>
+            <div class="process-flow">
+                <div class="process-connector"></div>
+                <div class="process-step fade-in">
+                    <div class="step-icon">📬</div>
+                    <div class="step-label">Random<br>Selection</div>
+                </div>
+                <div class="process-step fade-in" style="animation-delay: 0.1s;">
+                    <div class="step-icon">📚</div>
+                    <div class="step-label">Learning<br>Phase</div>
+                </div>
+                <div class="process-step fade-in" style="animation-delay: 0.2s;">
+                    <div class="step-icon">💬</div>
+                    <div class="step-label">Deliberation</div>
+                </div>
+                <div class="process-step fade-in" style="animation-delay: 0.3s;">
+                    <div class="step-icon">📝</div>
+                    <div class="step-label">Consensus<br>Building</div>
+                </div>
+                <div class="process-step fade-in" style="animation-delay: 0.4s;">
+                    <div class="step-icon">🎯</div>
+                    <div class="step-label">Policy<br>Impact</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px;">
+                <div class="tech-card fade-in">
+                    <h3 style="font-size: 1.8rem; color: var(--deep-blue); margin-bottom: 20px;">Gibsons, BC (Pop. 5,093)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>First in Canada to integrate CA into official planning</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>25 residents met for 30-40 hours</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>75% consensus required for recommendations</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>All 6 recommendations prioritized by Council</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-card fade-in" style="animation-delay: 0.1s;">
+                    <h3 style="font-size: 1.8rem; color: var(--deep-blue); margin-bottom: 20px;">Eugene, OR (Pop. 177,899)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>Tackled contentious housing policy</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>29 diverse residents selected by lottery</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>Included renters' perspectives often missing</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="color: var(--accent-aqua); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span>Recommendations influenced final policies</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Civic Technology -->
+    <section class="tech-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technology Amplifying Democracy</h2>
+                <p class="section-subtitle">Digital tools breaking down barriers to participation</p>
+            </div>
+            <div class="tech-showcase">
+                <div class="tech-card fade-in">
+                    <h3 class="solution-title">Motivote: Gamifying Youth Engagement</h3>
+                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">
+                        Transforming voting preparation into a social, goal-oriented activity for college students
+                    </p>
+                    <div class="tech-impact">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--accent-aqua);">+10%</div>
+                            <div style="font-size: 0.9rem; color: #666;">Potential turnout increase</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--deep-blue);">18-29</div>
+                            <div style="font-size: 0.9rem; color: #666;">Target age group</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" style="height: 200px;">
+                        <canvas id="motivoteChart"></canvas>
+                    </div>
+                </div>
+                <div class="tech-card fade-in" style="animation-delay: 0.1s;">
+                    <h3 class="solution-title">LA County VR: Future of Election Planning</h3>
+                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">
+                        Virtual reality simulations optimizing polling places for 5 million voters during COVID-19
+                    </p>
+                    <div class="tech-impact">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--accent-aqua);">5M</div>
+                            <div style="font-size: 0.9rem; color: #666;">Voters served</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--deep-blue);">$700K</div>
+                            <div style="font-size: 0.9rem; color: #666;">Research investment</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(0, 169, 157, 0.1); border-radius: 10px;">
+                        <p style="font-size: 1rem; color: var(--deep-blue);">
+                            ✓ Tested COVID safety protocols<br>
+                            ✓ Optimized voter flow<br>
+                            ✓ Ensured accessibility for all<br>
+                            ✓ Contributed to record turnout
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Dashboard -->
+    <section class="impact-dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" style="color: white;">The Mighty Impact</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Measurable outcomes from small-scale initiatives</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-metric fade-in">
+                    <div class="metric-value">16,675</div>
+                    <div class="metric-label">Citizens Voted in PB</div>
+                </div>
+                <div class="impact-metric fade-in" style="animation-delay: 0.1s;">
+                    <div class="metric-value">$13.6M</div>
+                    <div class="metric-label">Community-Directed Funds</div>
+                </div>
+                <div class="impact-metric fade-in" style="animation-delay: 0.2s;">
+                    <div class="metric-value">86</div>
+                    <div class="metric-label">Projects Funded</div>
+                </div>
+                <div class="impact-metric fade-in" style="animation-delay: 0.3s;">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">PB Fellows Report Learning</div>
+                </div>
+                <div class="impact-metric fade-in" style="animation-delay: 0.4s;">
+                    <div class="metric-value">54</div>
+                    <div class="metric-label">Citizens in Assemblies</div>
+                </div>
+                <div class="impact-metric fade-in" style="animation-delay: 0.5s;">
+                    <div class="metric-value">9</div>
+                    <div class="metric-label">Languages Supported</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Principles -->
+    <section class="solutions-overview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Design Principles for Success</h2>
+                <p class="section-subtitle">How to make civic engagement work</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🌍 Design for Inclusion</h4>
+                    <p style="color: #666;">Remove barriers: low voting age, no citizenship requirements, multilingual materials, stipends</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🔍 Design for Transparency</h4>
+                    <p style="color: #666;">Make processes open and understandable to build trust and accountability</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🎯 Design with Clear Purpose</h4>
+                    <p style="color: #666;">Define goals and extent of citizen influence from the start</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">💰 Design with Resources</h4>
+                    <p style="color: #666;">Commit sufficient funding and support for genuine participation</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">🗣️ Design for Fair Discussion</h4>
+                    <p style="color: #666;">Use skilled facilitators to ensure all voices are heard</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-aqua);">
+                    <h4 style="font-size: 1.3rem; color: var(--deep-blue); margin-bottom: 10px;">📈 Design for Improvement</h4>
+                    <p style="color: #666;">Evaluate and iterate to enhance effectiveness over time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title">Democracy is a Design Problem</h2>
+            <p style="font-size: 1.5rem; color: var(--medium-blue); margin: 30px auto; max-width: 800px;">
+                When we design civic engagement with intention—prioritizing inclusion, transparency, and genuine power-sharing—we unlock the collective wisdom of our communities.
+            </p>
+            <p style="font-size: 1.3rem; margin: 30px auto; max-width: 600px;">
+                The power to build a better future resides in our communities, waiting to be unlocked.
+            </p>
+            <a href="#" class="cta-button">Join the Movement</a>
+        </div>
+    </section>
 
     <script>
-        Chart.register(ChartDataLabels); 
-
-        const ccdPalette = { /* ... (palette definition from previous version) ... */ 
-            deepBlue: '#003366', mediumBlue: '#336699', accentTeal: '#009688',
-            sbmBrandText: '#005A87', sbmAccentText: '#00A99D', lightGray: '#F0F4F8', 
-            white: '#FFFFFF', yellowHighlight: '#FFC107' 
-        };
-
-        function wrapLabels(label, maxWidth) { /* ... (function from previous version) ... */ 
-            if (typeof label !== 'string') return label;
-            if (label.length <= maxWidth) return label;
-            const words = label.split(' '); let currentLine = ''; const lines = [];
-            words.forEach(word => {
-                if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
-                    lines.push(currentLine.trim()); currentLine = word;
-                } else { currentLine = (currentLine + ' ' + word).trim(); }
-            });
-            if (currentLine.length > 0) lines.push(currentLine.trim());
-            return lines.length > 1 ? lines : lines[0] || '';
-        }
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = 'Inter';
         
-        const chartTooltipTitleCallback = (tooltipItems) => { /* ... (function from previous version) ... */ 
-            const item = tooltipItems[0]; let label = item.chart.data.labels[item.dataIndex];
-            return Array.isArray(label) ? label.join(' ') : label;
-        };
-
-        const defaultChartOptions = { /* ... (options from previous version, ensure datalabels plugin is configured) ... */ 
-            responsive: true, maintainAspectRatio: false, layout: { padding: { top: 25, bottom: 15, left:10, right:10 } }, 
-            plugins: {
-                legend: { position: 'bottom', labels: { color: ccdPalette.deepBlue, font: { size: 13, family: 'Inter', weight: 500 }, padding: 25 }},
-                tooltip: {
-                    enabled: false, 
-                    external: function(context) { 
-                        let tooltipEl = document.getElementById('chartjs-tooltip');
-                        if (!tooltipEl) { tooltipEl = document.createElement('div'); tooltipEl.id = 'chartjs-tooltip'; tooltipEl.classList.add('chartjs-tooltip'); document.body.appendChild(tooltipEl); }
-                        const tooltipModel = context.tooltip;
-                        if (tooltipModel.opacity === 0) { tooltipEl.style.opacity = 0; tooltipEl.style.transform = 'translate(-50%, -120%) scale(0.95)'; return; }
-                        tooltipEl.classList.remove('above', 'below', 'no-transform');
-                        if (tooltipModel.yAlign) tooltipEl.classList.add(tooltipModel.yAlign); else tooltipEl.classList.add('no-transform');
-                        if (tooltipModel.body) {
-                            const titleLines = tooltipModel.title || []; const bodyLines = tooltipModel.body.map(item => item.lines); let innerHtml = '';
-                            titleLines.forEach(title => { innerHtml += '<div style="font-weight: 700; margin-bottom: 8px; font-size: 1.1em;">' + title + '</div>'; });
-                            innerHtml += '<table style="width:100%; border-spacing: 0 4px;">'; 
-                            bodyLines.forEach((body, i) => {
-                                const colors = tooltipModel.labelColors[i];
-                                let style = 'background:' + colors.backgroundColor + '; border: 2px solid ' + colors.borderColor + '; display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 3px; vertical-align: middle;'; 
-                                const span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-                                innerHtml += '<tr><td style="padding: 2px 0; font-size: 1em;">' + span + body + '</td></tr>';
-                            });
-                            innerHtml += '</table>'; tooltipEl.innerHTML = innerHtml;
-                        }
-                        const position = context.chart.canvas.getBoundingClientRect();
-                        tooltipEl.style.opacity = 1; tooltipEl.style.position = 'absolute';
-                        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-                        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-                        tooltipEl.style.pointerEvents = 'none'; tooltipEl.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-                        tooltipEl.style.transform = 'translate(-50%, -110%) scale(1)'; 
-                    },
-                    callbacks: { title: chartTooltipTitleCallback }
+        // Evanston Projects Chart
+        const evanstonCtx = document.getElementById('evanstonChart').getContext('2d');
+        new Chart(evanstonCtx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Affordable Housing', 'Marginalized Students', 'Refugee Housing', 'Urban Farm', 'Youth Center', 'Small Business', 'Mental Health'],
+                datasets: [{
+                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
+                    backgroundColor: '#00A99D',
+                    borderColor: '#005A87',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'right',
+                        color: '#005A87',
+                        font: { weight: 'bold' },
+                        formatter: (value) => '$' + (value/1000) + 'k'
+                    }
                 },
-                datalabels: { 
-                    color: ccdPalette.white, anchor: 'end', align: 'start', offset: -20, 
-                    font: { weight: '600', size: 13, family: 'Inter' },
-                    formatter: (value, context) => { 
-                        if (context.chart.config.type === 'doughnut' || context.chart.config.type === 'pie') {
-                             const total = context.chart.getDatasetMeta(0).total; const percentage = (value / total * 100);
-                             return percentage > 5 ? percentage.toFixed(0) + '%' : ''; 
-                        } return value;
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value/1000) + 'k';
+                            }
+                        }
                     }
                 }
-            },
-            scales: {
-                y: { ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, grid: { color: 'rgba(0, 51, 102, 0.15)' }, beginAtZero: true },
-                x: { ticks: { color: ccdPalette.deepBlue, font: { size: 12, family: 'Inter' } }, grid: { display: false } }
             }
+        });
+        
+        // Cambridge Trend Chart
+        const cambridgeCtx = document.getElementById('cambridgeChart').getContext('2d');
+        new Chart(cambridgeCtx, {
+            type: 'line',
+            data: {
+                labels: ['PB9', 'PB10', 'PB11'],
+                datasets: [{
+                    label: 'Voter Participation',
+                    data: [8768, 10522, 10110],
+                    borderColor: '#00A99D',
+                    backgroundColor: 'rgba(0, 169, 157, 0.2)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#00A99D'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'top',
+                        align: 'top',
+                        color: '#005A87',
+                        font: { weight: 'bold' },
+                        formatter: (value) => value.toLocaleString()
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Motivote Impact Chart
+        const motivoteCtx = document.getElementById('motivoteChart').getContext('2d');
+        new Chart(motivoteCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed Actions', 'Engaged but Incomplete', 'Not Engaged'],
+                datasets: [{
+                    data: [45, 30, 25],
+                    backgroundColor: ['#00A99D', '#336699', '#F0F4F8'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { size: 11 }
+                        }
+                    },
+                    datalabels: {
+                        color: 'white',
+                        font: { weight: 'bold', size: 14 },
+                        formatter: (value) => value + '%'
+                    }
+                }
+            }
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px'
         };
-
-        const evanstonTurnoutCtx = document.getElementById('evanstonTurnoutChart').getContext('2d');
-        new Chart(evanstonTurnoutCtx, { /* ... (Evanston Turnout Chart config from previous version) ... */ 
-            type: 'doughnut', data: { labels: ['Evanston PB Turnout', 'Typical US PB Turnout', 'Non-Voters (Context)'], datasets: [{ label: 'Voter Turnout Comparison', data: [8.5, 1, 90.5], backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue, ccdPalette.lightGray], borderColor: ccdPalette.white, borderWidth: 4, hoverOffset: 10 }] }, options: { ...defaultChartOptions, cutout: '70%', plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.deepBlue, anchor: 'center', align: 'center', offset:0, font: {size: 14, weight: 'bold'}, formatter: (v,c)=> { const label = c.chart.data.labels[c.dataIndex].split('(')[0].trim(); return v > 3 ? label + '\n' + v + '%' : ''; }  }}}
-        });
-        const evanstonProjectsCtx = document.getElementById('evanstonProjectsChart').getContext('2d');
-        const evanstonProjectLabels = ['Affordable Housing', 'Marginalized Student Support', 'Refugee Housing', 'Urban Farm', 'Youth Drop-In Center', 'Small Business Grants', 'Mental Health Training'].map(label => wrapLabels(label, 22)); 
-        new Chart(evanstonProjectsCtx, { /* ... (Evanston Projects Chart config from previous version) ... */ 
-            type: 'bar', data: { labels: evanstonProjectLabels, datasets: [{ label: 'Funding (USD)', data: [810000, 700000, 645000, 350000, 210000, 150000, 50000], backgroundColor: ccdPalette.sbmAccentText, borderColor: ccdPalette.sbmBrandText, borderWidth: 1.5, borderRadius: 5, hoverBackgroundColor: ccdPalette.accentTeal }] }, options: { ...defaultChartOptions, indexAxis: 'y', plugins: {...defaultChartOptions.plugins, legend: {display: false}, datalabels: {...defaultChartOptions.plugins.datalabels, anchor: 'end', align: 'right', color: ccdPalette.sbmBrandText, offset: 10, font: {size:13, weight:'600'}, formatter: (v) => '$' + (v/1000) + 'k'}}, scales: { x: { ...defaultChartOptions.scales.x, ticks: { ...defaultChartOptions.scales.x.ticks, callback: (v) => '$' + (v/1000) + 'k'} }, y: { ...defaultChartOptions.scales.y, ticks: {...defaultChartOptions.scales.y.ticks, font: {size:11} } } } }
-        });
-        const cambridgeTurnoutCtx = document.getElementById('cambridgeTurnoutChart').getContext('2d');
-        new Chart(cambridgeTurnoutCtx, { /* ... (Cambridge Turnout Chart config from previous version) ... */ 
-            type: 'line', data: { labels: ['PB9 (FY24)', 'PB10 (FY25)', 'PB11 (FY26)'], datasets: [{ label: 'Voters', data: [8768, 10522, 10110], backgroundColor: Chart.helpers.color(ccdPalette.sbmAccentText).alpha(0.25).rgbString(), borderColor: ccdPalette.sbmAccentText, borderWidth: 2.5, tension: 0.35, fill: true, pointBackgroundColor: ccdPalette.sbmAccentText, pointBorderColor: ccdPalette.white, pointHoverBackgroundColor: ccdPalette.white, pointHoverBorderColor: ccdPalette.sbmAccentText, pointRadius: 6, pointHoverRadius: 9 }] }, options: {...defaultChartOptions, plugins: {...defaultChartOptions.plugins, datalabels: {...defaultChartOptions.plugins.datalabels, align:'top', offset: 10, color: ccdPalette.sbmBrandText, font:{size:13, weight:'600'}}}}
-        });
-        const motivoteImpactCtx = document.getElementById('motivoteImpactChart').getContext('2d');
-        new Chart(motivoteImpactCtx, { /* ... (Motivote Impact Chart config from previous version) ... */ 
-            type: 'pie', data: { labels: ['Youth (18-29) Target', 'Other Ages (Conceptual)'], datasets: [{ data: [40, 60], backgroundColor: [ccdPalette.sbmAccentText, ccdPalette.mediumBlue], borderColor: ccdPalette.white, borderWidth: 4, hoverOffset: 10 }] }, options: { ...defaultChartOptions, plugins: { ...defaultChartOptions.plugins, legend: { position: 'right', labels: {...defaultChartOptions.plugins.legend.labels, boxWidth: 15, padding: 15} }, title: { display: false }, datalabels: {...defaultChartOptions.plugins.datalabels, color: ccdPalette.white, font:{size:14, weight:'bold'}, formatter: (v,c)=> v + '%'} } }
-        });
-
-        // Read More Functionality
-        document.querySelectorAll('.read-more-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const content = this.previousElementSibling;
-                content.classList.toggle('expanded');
-                if (content.classList.contains('expanded')) {
-                    this.textContent = 'Read Less';
-                } else {
-                    this.textContent = 'Read More';
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-        });
+        }, observerOptions);
         
-        // Active Nav Link highlighting on scroll & other JS functions from previous version
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('#mainNav a');
-        window.addEventListener('scroll', () => { /* ... (scroll highlighting logic from previous version) ... */ 
-            let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (pageYOffset >= sectionTop - 150) { current = section.getAttribute('id'); } });
-            navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href').includes(current)) { link.classList.add('active'); } });
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            observer.observe(el);
         });
-        
-        function showCcdAlert(message, title = 'Notification') { /* ... (alert modal logic from previous version) ... */ 
-            const modal = document.getElementById('ccdAlertModal'); const modalContent = document.getElementById('alertModalContent');
-            document.getElementById('ccdAlertTitle').innerText = title; document.getElementById('ccdAlertMessage').innerText = message;
-            modal.style.display = 'flex'; void modalContent.offsetWidth; 
-            modalContent.style.transform = 'scale(1)'; modalContent.style.opacity = '1';
-            document.getElementById('okBtn').onclick = function() {
-                modalContent.style.transform = 'scale(0.95)'; modalContent.style.opacity = '0';
-                setTimeout(() => { modal.style.display = 'none'; }, 300); 
-            };
-        }
     </script>
 </body>
 </html>
