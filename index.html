@@ -962,16 +962,45 @@
         .stagger-animation:nth-child(5) { transition-delay: 0.5s; }
         .stagger-animation:nth-child(6) { transition-delay: 0.6s; }
         
-        /* Responsive Design */
+        /* Enhanced Responsive Design */
         @media (max-width: 1024px) {
             .case-study-grid,
-            .crisis-content {
+            .crisis-content,
+            .comparison-content {
                 grid-template-columns: 1fr;
                 gap: 48px;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .stats-grid,
+            .stats-grid-large {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .floating-nav {
+                right: 16px;
+            }
+            
+            .timeline-item {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            .timeline-content {
+                margin: 20px 0 !important;
+            }
+            
+            .timeline-content::before {
+                display: none;
+            }
+            
+            .timeline-line-vertical {
+                left: 40px;
+                transform: none;
+            }
+            
+            .timeline-icon {
+                position: relative;
+                z-index: 3;
             }
         }
         
@@ -982,7 +1011,8 @@
             }
             
             .solutions-grid,
-            .tech-showcase {
+            .tech-showcase,
+            .stats-grid-large {
                 grid-template-columns: 1fr;
             }
             
@@ -992,13 +1022,7 @@
             }
             
             .timeline-line {
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                right: auto;
-                width: 4px;
-                height: auto;
-                transform: translateX(-50%);
+                display: none;
             }
             
             .cta-buttons {
@@ -1009,6 +1033,23 @@
             .tab-button {
                 padding: 12px 20px;
                 font-size: 0.875rem;
+            }
+            
+            .floating-nav {
+                display: none;
+            }
+            
+            .testimonial-quote {
+                font-size: 1.25rem;
+            }
+            
+            .timeline-container {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+            
+            .timeline-line-vertical {
+                left: 20px;
             }
         }
         
@@ -1024,6 +1065,540 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-value-large {
+                font-size: 3rem;
+            }
+            
+            .case-study-tabs {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .tab-button {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .testimonial-author {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+        
+        /* Performance Optimizations */
+        .will-change-transform {
+            will-change: transform;
+        }
+        
+        .will-change-opacity {
+            will-change: opacity;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--gradient-primary);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+        
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 16px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .floating-nav.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .nav-dot {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            margin: 12px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-dot.active {
+            background: var(--brand-blue);
+            transform: scale(1.5);
+        }
+        
+        .nav-dot:hover {
+            background: var(--accent-teal);
+            transform: scale(1.3);
+        }
+        
+        .nav-dot::after {
+            content: attr(data-section);
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--deep-blue);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+        
+        /* Enhanced Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Interactive Timeline */
+        .timeline-section {
+            background: var(--light-gray);
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline-line-vertical {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+            margin: 0 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+            border-left-color: white;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+            border-right-color: white;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            z-index: 2;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 16px;
+        }
+        
+        .timeline-description {
+            color: var(--medium-blue);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-metrics {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .timeline-metric {
+            background: var(--light-gray);
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+        }
+        
+        .timeline-metric-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            display: block;
+        }
+        
+        .timeline-metric-label {
+            font-size: 0.75rem;
+            color: var(--medium-blue);
+        }
+        
+        /* Enhanced Stats Section */
+        .stats-showcase {
+            background: white;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(14, 165, 233, 0.03) 50%, transparent 100%);
+        }
+        
+        .stats-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 48px;
+            margin-top: 80px;
+        }
+        
+        .stat-card-large {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        
+        .stat-card-large::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+        }
+        
+        .stat-card-large:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .stat-icon {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            display: block;
+        }
+        
+        .stat-value-large {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+        
+        .stat-title-large {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 16px;
+        }
+        
+        .stat-description-large {
+            color: var(--medium-blue);
+            line-height: 1.6;
+        }
+        
+        /* Interactive Comparison */
+        .comparison-section {
+            background: var(--light-gray);
+            padding: 120px 0;
+        }
+        
+        .comparison-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 64px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 300px;
+            height: 60px;
+            background: white;
+            border-radius: 30px;
+            padding: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 146px;
+            height: 52px;
+            background: var(--gradient-primary);
+            border-radius: 26px;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .toggle-options {
+            display: flex;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .toggle-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--medium-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-option.active {
+            color: white;
+        }
+        
+        .comparison-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        
+        .comparison-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.6s ease;
+        }
+        
+        .comparison-card.highlighted {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+            border: 2px solid var(--brand-blue);
+        }
+        
+        /* Testimonials */
+        .testimonials-section {
+            background: white;
+            padding: 120px 0;
+        }
+        
+        .testimonials-slider {
+            position: relative;
+            max-width: 1000px;
+            margin: 64px auto 0;
+        }
+        
+        .testimonial {
+            text-align: center;
+            padding: 0 40px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+        
+        .testimonial.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .testimonial-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--medium-blue);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .author-info h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            margin-bottom: 4px;
+        }
+        
+        .author-info p {
+            color: var(--medium-blue);
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        
+        .nav-dot-testimonial {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot-testimonial.active {
+            background: var(--brand-blue);
+            transform: scale(1.5);
         }
         
         /* Accessibility */
@@ -1039,15 +1614,30 @@
         
         /* Focus styles */
         .tab-button:focus,
-        .cta-button:focus {
+        .cta-button:focus,
+        .nav-dot:focus,
+        .toggle-option:focus {
             outline: 2px solid var(--accent-aqua);
             outline-offset: 2px;
         }
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <a href="#home" class="nav-dot" data-section="Home"></a>
+        <a href="#crisis" class="nav-dot" data-section="Crisis"></a>
+        <a href="#solutions" class="nav-dot" data-section="Solutions"></a>
+        <a href="#case-studies" class="nav-dot" data-section="Cases"></a>
+        <a href="#process" class="nav-dot" data-section="Process"></a>
+        <a href="#impact" class="nav-dot" data-section="Impact"></a>
+        <a href="#principles" class="nav-dot" data-section="Design"></a>
+    </nav>
     <!-- Enhanced Header -->
-    <header class="header">
+    <header class="header" id="home">
         <div class="container">
             <div class="hero-content">
                 <div class="logo-badge animate-on-scroll">
@@ -1088,7 +1678,7 @@
     </header>
 
     <!-- Crisis Section -->
-    <section class="crisis-section">
+    <section class="crisis-section" id="crisis">
         <div class="container">
             <div class="crisis-content">
                 <div class="crisis-text animate-on-scroll">
@@ -1114,8 +1704,299 @@
         </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">Voices from the Community</h2>
+                <p class="section-subtitle">What leaders and participants are saying</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-quote">
+                        "The historic level of turnout in our participatory budgeting process is another 
+                        demonstration of Evanston's passionate and engaged citizenry... Our residents' ideas 
+                        and involvement are truly our greatest asset."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DB</div>
+                        <div class="author-info">
+                            <h4>Daniel Biss</h4>
+                            <p>Mayor of Evanston, Illinois</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-quote">
+                        "The incredible amount of thoughtful work contributed by residents... 
+                        The PB process has become a regional model for citizen engagement, 
+                        cultivating a strong sense of ownership and pride among participants."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">YH</div>
+                        <div class="author-info">
+                            <h4>Yi-An Huang</h4>
+                            <p>Cambridge City Manager</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-quote">
+                        "The Assembly's report effectively became a foundational document for the OCP update. 
+                        Many of the Assembly's proposals aligned with directions we were already considering, 
+                        but provided crucial confirmation of broad public support."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">GC</div>
+                        <div class="author-info">
+                            <h4>Gibsons Council</h4>
+                            <p>Town of Gibsons, BC</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-quote">
+                        "The panel engaged a wider range of community members than any previous planning effort 
+                        in Eugene, bringing fresh and diverse perspectives that enriched the policy discussion 
+                        and provided political support for moving forward."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EC</div>
+                        <div class="author-info">
+                            <h4>Eugene City Officials</h4>
+                            <p>City of Eugene, Oregon</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-quote">
+                        "A really wonderful, exciting democratic idea that effectively brought residents' ideas 
+                        to the forefront of municipal decision-making. People's ideas were heard in a novel way, 
+                        which generated considerable excitement and buy-in."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ER</div>
+                        <div class="author-info">
+                            <h4>Evanston Resident</h4>
+                            <p>PB Participant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-nav">
+                <span class="nav-dot-testimonial active" data-testimonial="0"></span>
+                <span class="nav-dot-testimonial" data-testimonial="1"></span>
+                <span class="nav-dot-testimonial" data-testimonial="2"></span>
+                <span class="nav-dot-testimonial" data-testimonial="3"></span>
+                <span class="nav-dot-testimonial" data-testimonial="4"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Statistics Showcase -->
+    <section class="stats-showcase">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">By the Numbers</h2>
+                <p class="section-subtitle">The quantifiable impact of democratic innovation</p>
+            </div>
+            
+            <div class="stats-grid-large">
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">🗳️</span>
+                    <span class="stat-value-large" data-counter="8.5">0</span>
+                    <h3 class="stat-title-large">Times Higher Turnout</h3>
+                    <p class="stat-description-large">
+                        Evanston's PB achieved 8.5% population turnout vs typical 1% in most US PB processes—
+                        demonstrating power of crisis-driven, well-resourced citizen engagement.
+                    </p>
+                </div>
+                
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">🎯</span>
+                    <span class="stat-value-large">75%</span>
+                    <h3 class="stat-title-large">Consensus Threshold</h3>
+                    <p class="stat-description-large">
+                        Citizens' assemblies require 75% agreement for recommendations, ensuring broad 
+                        support and legitimacy for complex policy decisions.
+                    </p>
+                </div>
+                
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">🌍</span>
+                    <span class="stat-value-large" data-counter="9">0</span>
+                    <h3 class="stat-title-large">Languages Supported</h3>
+                    <p class="stat-description-large">
+                        Cambridge PB materials translated into 9 languages including Amharic, Arabic, 
+                        Bangla, Chinese, Haitian Creole, Hindi, Japanese, Portuguese, and Spanish.
+                    </p>
+                </div>
+                
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">💡</span>
+                    <span class="stat-value-large">100%</span>
+                    <h3 class="stat-title-large">Learning Reported</h3>
+                    <p class="stat-description-large">
+                        Every PB Fellows participant reported significant increases in knowledge about 
+                        youth voice impact, city institutions, and community engagement methods.
+                    </p>
+                </div>
+                
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">🏠</span>
+                    <span class="stat-value-large">$1.5M</span>
+                    <h3 class="stat-title-large">Housing Investment</h3>
+                    <p class="stat-description-large">
+                        Combined $810K affordable housing + $645K refugee housing from Evanston PB, 
+                        directly addressing community's most pressing needs.
+                    </p>
+                </div>
+                
+                <div class="stat-card-large scroll-reveal stagger-animation">
+                    <span class="stat-icon">⚡</span>
+                    <span class="stat-value-large">+7%</span>
+                    <h3 class="stat-title-large">Future Voting Boost</h3>
+                    <p class="stat-description-large">
+                        Research shows PB participants are 7% more likely to vote in subsequent 
+                        elections, creating lasting democratic engagement beyond single initiatives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Timeline -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">The Democratic Innovation Journey</h2>
+                <p class="section-subtitle">Key milestones in participatory democracy evolution</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line-vertical"></div>
+                
+                <div class="timeline-item scroll-reveal-left">
+                    <div class="timeline-icon">2014</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Cambridge, MA</div>
+                        <h3 class="timeline-title">First Annual PB Cycle</h3>
+                        <p class="timeline-description">
+                            Cambridge launches what becomes America's longest-running municipal PB program, 
+                            starting with $1M in capital budget allocation.
+                        </p>
+                        <div class="timeline-metrics">
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">$1M</span>
+                                <span class="timeline-metric-label">Initial Budget</span>
+                            </div>
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">12+</span>
+                                <span class="timeline-metric-label">Min. Voting Age</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal-right">
+                    <div class="timeline-icon">2019</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Oregon State</div>
+                        <h3 class="timeline-title">Housing Bill 2001 Enacted</h3>
+                        <p class="timeline-description">
+                            Oregon passes landmark middle housing legislation, requiring cities to allow 
+                            duplexes, triplexes, and fourplexes in single-family zones.
+                        </p>
+                        <div class="timeline-metrics">
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">Large</span>
+                                <span class="timeline-metric-label">Cities Required</span>
+                            </div>
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">Multi</span>
+                                <span class="timeline-metric-label">Housing Types</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal-left">
+                    <div class="timeline-icon">2020</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Eugene, OR</div>
+                        <h3 class="timeline-title">Citizens' Assembly on Housing</h3>
+                        <p class="timeline-description">
+                            Eugene convenes 29-member citizen review panel to navigate HB2001 implementation, 
+                            bringing diverse voices to contentious housing policy.
+                        </p>
+                        <div class="timeline-metrics">
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">29</span>
+                                <span class="timeline-metric-label">Panel Members</span>
+                            </div>
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">$560</span>
+                                <span class="timeline-metric-label">Stipend</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal-right">
+                    <div class="timeline-icon">2022</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Evanston, IL</div>
+                        <h3 class="timeline-title">ARPA-Funded PB Launch</h3>
+                        <p class="timeline-description">
+                            Evanston allocates $3M in federal COVID relief funds through participatory budgeting, 
+                            achieving record 8.5% population turnout.
+                        </p>
+                        <div class="timeline-metrics">
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">$3M</span>
+                                <span class="timeline-metric-label">ARPA Funds</span>
+                            </div>
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">6,565</span>
+                                <span class="timeline-metric-label">Voters</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal-left">
+                    <div class="timeline-icon">2024</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Gibsons, BC</div>
+                        <h3 class="timeline-title">First Municipal CA in Canada</h3>
+                        <p class="timeline-description">
+                            Small coastal town becomes first municipality in Canada to integrate citizens' assembly 
+                            into official community planning process.
+                        </p>
+                        <div class="timeline-metrics">
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">25</span>
+                                <span class="timeline-metric-label">Assembly Members</span>
+                            </div>
+                            <div class="timeline-metric">
+                                <span class="timeline-metric-value">100%</span>
+                                <span class="timeline-metric-label">Council Adoption</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Solutions Overview -->
-    <section class="solutions-section">
+    <section class="solutions-section" id="solutions">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Three Powerful Solutions</h2>
@@ -1184,7 +2065,7 @@
     </section>
 
     <!-- Case Studies with Tabs -->
-    <section class="case-studies">
+    <section class="case-studies" id="case-studies">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Case Studies: Democracy in Action</h2>
@@ -1537,7 +2418,7 @@
     </section>
 
     <!-- Citizens Assembly Process -->
-    <section class="assembly-process">
+    <section class="assembly-process" id="process">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">The Citizens' Assembly Process</h2>
@@ -1578,7 +2459,7 @@
     </section>
 
     <!-- Impact Dashboard -->
-    <section class="impact-section">
+    <section class="impact-section" id="impact">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">The Mighty Impact</h2>
@@ -1621,7 +2502,7 @@
     </section>
 
     <!-- Design Principles -->
-    <section class="principles-section">
+    <section class="principles-section" id="principles">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Design Principles for Success</h2>
@@ -1725,10 +2606,298 @@
     </section>
 
     <script>
-        // Chart.js Setup
-        Chart.register(ChartDataLabels);
-        Chart.defaults.font.family = 'Inter, -apple-system, BlinkMacSystemFont, sans-serif';
-        Chart.defaults.color = '#1e293b';
+        // Wait for DOM and Chart.js to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Chart is available, if not provide fallbacks
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js not loaded, showing static content');
+                // Add fallback content for charts
+                const chartElements = document.querySelectorAll('canvas[id$="Chart"]');
+                chartElements.forEach(canvas => {
+                    const fallback = document.createElement('div');
+                    fallback.style.cssText = 'display: flex; align-items: center; justify-content: center; height: 400px; background: #f1f5f9; border-radius: 16px; color: #64748b; font-size: 1rem;';
+                    fallback.textContent = 'Interactive chart loading...';
+                    canvas.parentNode.replaceChild(fallback, canvas);
+                });
+            } else {
+                // Chart.js is available, proceed with chart creation
+                try {
+                    Chart.register(ChartDataLabels);
+                    Chart.defaults.font.family = 'Inter, -apple-system, BlinkMacSystemFont, sans-serif';
+                    Chart.defaults.color = '#1e293b';
+                } catch (error) {
+                    console.warn('ChartDataLabels plugin not available');
+                }
+            
+            // Trust Crisis Chart
+            const trustChartElement = document.getElementById('trustChart');
+            if (trustChartElement) {
+                const trustCtx = trustChartElement.getContext('2d');
+                new Chart(trustCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Trust Government', 'Don\'t Trust Government'],
+                        datasets: [{
+                            data: [18, 82],
+                            backgroundColor: ['#0ea5e9', '#e2e8f0'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    font: { size: 14, weight: '600' }
+                                }
+                            },
+                            datalabels: {
+                                color: 'white',
+                                font: { weight: 'bold', size: 18 },
+                                formatter: (value) => value + '%'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Evanston Projects Chart
+            const evanstonChartElement = document.getElementById('evanstonChart');
+            if (evanstonChartElement) {
+                const evanstonCtx = evanstonChartElement.getContext('2d');
+                new Chart(evanstonCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Housing', 'Education', 'Refugee Support', 'Urban Farm', 'Youth Center', 'Small Business', 'Mental Health'],
+                        datasets: [{
+                            data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
+                            backgroundColor: '#0ea5e9',
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            datalabels: {
+                                anchor: 'end',
+                                align: 'right',
+                                color: '#0f172a',
+                                font: { weight: 'bold', size: 12 },
+                                formatter: (value) => '
+            
+            // Counter Animation Enhancement
+            function animateCounter(element, target, duration = 2000, suffix = '') {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        if (target.toString().includes('.')) {
+                            element.textContent = target.toFixed(1) + suffix;
+                        } else {
+                            element.textContent = target.toLocaleString() + suffix;
+                        }
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current).toLocaleString() + suffix;
+                    }
+                }, 16);
+            }
+            
+            // Progress Bar
+            function updateProgressBar() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+            }
+            
+            // Floating Navigation
+            function updateFloatingNav() {
+                const sections = document.querySelectorAll('section[id]');
+                const navDots = document.querySelectorAll('.nav-dot');
+                const scrollPos = window.pageYOffset + 200;
+                
+                // Show/hide floating nav based on scroll position
+                const floatingNav = document.querySelector('.floating-nav');
+                if (window.pageYOffset > 300) {
+                    floatingNav.classList.add('visible');
+                } else {
+                    floatingNav.classList.remove('visible');
+                }
+                
+                // Update active dot
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navDots.forEach(dot => dot.classList.remove('active'));
+                        if (navDots[index]) {
+                            navDots[index].classList.add('active');
+                        }
+                    }
+                });
+            }
+            
+            // Enhanced Scroll Animations
+            const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
+            
+            function checkReveal() {
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('revealed');
+                    }
+                });
+            }
+            
+            // Testimonial Slider
+            let currentTestimonial = 0;
+            const testimonials = document.querySelectorAll('.testimonial');
+            const testimonialDots = document.querySelectorAll('.nav-dot-testimonial');
+            
+            function showTestimonial(index) {
+                testimonials.forEach((testimonial, i) => {
+                    testimonial.classList.remove('active');
+                    testimonialDots[i].classList.remove('active');
+                });
+                
+                if (testimonials[index] && testimonialDots[index]) {
+                    testimonials[index].classList.add('active');
+                    testimonialDots[index].classList.add('active');
+                }
+                currentTestimonial = index;
+            }
+            
+            function nextTestimonial() {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                showTestimonial(currentTestimonial);
+            }
+            
+            // Auto-advance testimonials
+            setInterval(nextTestimonial, 5000);
+            
+            // Testimonial dot click handlers
+            testimonialDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showTestimonial(index));
+            });
+            
+            // Scroll Event Listeners
+            window.addEventListener('scroll', () => {
+                updateProgressBar();
+                updateFloatingNav();
+                checkReveal();
+            });
+            
+            // Initial calls
+            updateProgressBar();
+            updateFloatingNav();
+            checkReveal();
+            
+            // Enhanced Intersection Observer
+            const enhancedObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '50px 0px'
+            };
+            
+            const enhancedObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        
+                        // Animate counters with suffixes
+                        if (entry.target.hasAttribute('data-counter')) {
+                            const target = parseFloat(entry.target.dataset.counter);
+                            const suffix = entry.target.dataset.suffix || '';
+                            animateCounter(entry.target, target, 2000, suffix);
+                        }
+                        
+                        // Stagger animations for grouped elements
+                        if (entry.target.classList.contains('stagger-animation')) {
+                            const siblings = entry.target.parentNode.querySelectorAll('.stagger-animation');
+                            siblings.forEach((sibling, index) => {
+                                setTimeout(() => {
+                                    sibling.style.transitionDelay = (index * 0.1) + 's';
+                                    sibling.classList.add('animated');
+                                }, index * 100);
+                            });
+                        }
+                    }
+                });
+            }, enhancedObserverOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.animate-on-scroll, [data-counter], .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right').forEach(el => {
+                enhancedObserver.observe(el);
+            });
+            
+            // Floating nav click handlers
+            document.querySelectorAll('.nav-dot').forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(dot.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                    }
+                });
+            });
+        
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+            
+            // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+        
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html> + (value/1000) + 'k'
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    callback: function(value) {
+                                        return '
         
         // Counter Animation
         function animateCounter(element, target, duration = 2000) {
@@ -1925,6 +3094,273 @@
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
         });
+        
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html> + (value/1000) + 'k';
+                                    }
+                                },
+                                grid: { display: false }
+                            },
+                            y: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Cambridge Trend Chart
+            const cambridgeChartElement = document.getElementById('cambridgeChart');
+            if (cambridgeChartElement) {
+                const cambridgeCtx = cambridgeChartElement.getContext('2d');
+                new Chart(cambridgeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['PB8 (2022)', 'PB9 (2023)', 'PB10 (2024)', 'PB11 (2025)'],
+                        datasets: [{
+                            label: 'Voter Participation',
+                            data: [7500, 8768, 10522, 10110],
+                            borderColor: '#0ea5e9',
+                            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#0ea5e9',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 3,
+                            pointRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            datalabels: {
+                                anchor: 'top',
+                                align: 'top',
+                                color: '#0f172a',
+                                font: { weight: 'bold', size: 12 },
+                                formatter: (value) => value.toLocaleString()
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                },
+                                grid: { color: 'rgba(0,0,0,0.1)' }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        
+        // Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toString().includes('.') ? target.toFixed(1) : target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Animate counters
+                    if (entry.target.hasAttribute('data-counter')) {
+                        const target = parseFloat(entry.target.dataset.counter);
+                        animateCounter(entry.target, target);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, [data-counter]').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Trust Crisis Chart
+        const trustCtx = document.getElementById('trustChart').getContext('2d');
+        new Chart(trustCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Trust Government', 'Don\'t Trust Government'],
+                datasets: [{
+                    data: [18, 82],
+                    backgroundColor: ['#0ea5e9', '#e2e8f0'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: { size: 14, weight: '600' }
+                        }
+                    },
+                    datalabels: {
+                        color: 'white',
+                        font: { weight: 'bold', size: 18 },
+                        formatter: (value) => value + '%'
+                    }
+                }
+            }
+        });
+        
+        // Evanston Projects Chart
+        const evanstonCtx = document.getElementById('evanstonChart').getContext('2d');
+        new Chart(evanstonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Housing', 'Education', 'Refugee Support', 'Urban Farm', 'Youth Center', 'Small Business', 'Mental Health'],
+                datasets: [{
+                    data: [810000, 700000, 645000, 350000, 210000, 150000, 50000],
+                    backgroundColor: '#0ea5e9',
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'right',
+                        color: '#0f172a',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: (value) => '$' + (value/1000) + 'k'
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value/1000) + 'k';
+                            }
+                        },
+                        grid: { display: false }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+        
+        // Cambridge Trend Chart
+        const cambridgeCtx = document.getElementById('cambridgeChart').getContext('2d');
+        new Chart(cambridgeCtx, {
+            type: 'line',
+            data: {
+                labels: ['PB8 (2022)', 'PB9 (2023)', 'PB10 (2024)', 'PB11 (2025)'],
+                datasets: [{
+                    label: 'Voter Participation',
+                    data: [7500, 8768, 10522, 10110],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#0ea5e9',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 3,
+                    pointRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'top',
+                        align: 'top',
+                        color: '#0f172a',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: (value) => value.toLocaleString()
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.1)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+        
+        }); // End DOMContentLoaded
     </script>
 </body>
 </html>
