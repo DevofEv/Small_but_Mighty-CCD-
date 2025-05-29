@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:e2e": "node tests/e2e/main.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevofEv/Small_but_Mighty-CCD-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevofEv/Small_but_Mighty-CCD-/issues"
+  },
+  "homepage": "https://github.com/DevofEv/Small_but_Mighty-CCD-#readme",
+  "dependencies": {
+    "puppeteer": "^24.9.0"
+  }
+}
